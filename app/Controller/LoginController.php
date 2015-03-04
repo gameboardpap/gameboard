@@ -13,21 +13,26 @@ class LoginController extends AppController {
     {
 
     }
-
+    
     public function login()
     {
         if($this->verificarUsuario($this->request->data))
         {
-            $this->criarSessao($this->request->data);
+            $this->Session->setFlash(__('Logado com sucesso!'));
+        } else {
+            $this->Session->setFlash(__('Usuário e/ou Senha está incorreto!'));
         }
+        $this->redirect(array('action' => 'index'));
     }
 
     private function verificarUsuario($post)
     {
-        $dados=$this->Login->verificarUsuario($post["Usuario"]["nickname"], sha1($post["Usuario"]["password"]));
+        $dados=$this->Login->verificarUsuario($post["Login"]["nickname"], sha1($post["Login"]["password"]));
         if(!empty($dados))
         {
             $this->criarSessao($dados);
+            return true;
+            
         } else
         {
             return null;
@@ -39,10 +44,12 @@ class LoginController extends AppController {
      */
     private function criarSessao($dados)
     {
+ 
         $this->Session->write('Login.id',$dados['Usuario']['id']);
         $this->Session->write('Login.usuario',$dados['Usuario']['nickname']);
         $this->Session->write('Login.nome',$dados['Usuario']['primeiro_nome']);
         $this->Session->write('Login.sobrenome',$dados['Usuario']['ultimo_nome']);
+       
     }
 
     public function apagarSessao()

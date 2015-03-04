@@ -1,90 +1,13 @@
 <?php
-App::uses('AppModel', 'Model');
-/**
- * Usuario Model
- *
- */
-class Usuario extends AppModel {
 
-/**
- * Validation rules
- *
- * @var array
+/* 
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
  */
-	public $validate = array(
-		'nickname' => array(
-			'notEmpty' => array(
-				'rule' => array('notEmpty'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
-		),
-		'email' => array(
-			'email' => array(
-				'rule' => array('email'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
-		),
-		'password' => array(
-			'notEmpty' => array(
-				'rule' => array('notEmpty'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
-		),
-		'primeiro_nome' => array(
-			'notEmpty' => array(
-				'rule' => array('notEmpty'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
-		),
-		'ultimo_nome' => array(
-			'notEmpty' => array(
-				'rule' => array('notEmpty'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
-		),
-		'data_nascimento' => array(
-			'date' => array(
-				'rule' => array('date'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
-		),
-	);
 
-        public function beforeSave($options = array())  
-        {  
-            $this->data['Usuario']['password']=  sha1($this->data['Usuario']['password']);
-            if(!empty($this->data['Usuario']['avatar']['name'])) {  
-                $this->data['Usuario']['avatar'] = $this->upload($this->data['Usuario']['avatar']);  
-            } else {  
-                unset($this->data['Usuario']['avatar']);  
-            }  
-        }
-        
-        /** 
+class Upload extends AppModel {
+    /** 
          * Organiza o upload. 
          * @access public 
          * @param Array $imagem 
@@ -169,8 +92,5 @@ class Usuario extends AppModel {
             $arquivo = new File($imagem['tmp_name']);  
             $arquivo->copy($dir.$imagem['name']);  
             $arquivo->close();  
-        }  
-        
-        
-        
+        }
 }

@@ -1,5 +1,5 @@
 <div class="usuarios form">
-<?php echo $this->Form->create('Usuario'); ?>
+<?php echo $this->Form->create('Usuario',array('type' => 'file')); ?>
 	<fieldset>
 		<legend><?php echo __('Add Usuario'); ?></legend>
 	<?php
@@ -7,7 +7,7 @@
 		echo $this->Form->input('email');
 		echo $this->Form->input('password');
 		echo $this->Form->input('primeiro_nome');
-		echo $this->Form->input('avatar');
+		echo $this->Form->input('avatar',array('type' => 'file'));
 		echo $this->Form->input('descricao');
 		echo $this->Form->input('ultimo_nome');
 		echo $this->Form->input('data_nascimento');

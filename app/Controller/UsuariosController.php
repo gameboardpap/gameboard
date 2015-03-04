@@ -47,12 +47,13 @@ class UsuariosController extends AppController {
  */
 	public function add() {
 		if ($this->request->is('post')) {
-			if ($this->Usuario->salvar($this->request->data)) {
+			$this->Usuario->create();
+			if ($this->Usuario->save($this->request->data)) {
 				$this->Session->setFlash(__('The usuario has been saved.'));
+				return $this->redirect(array('action' => 'index'));
 			} else {
 				$this->Session->setFlash(__('The usuario could not be saved. Please, try again.'));
 			}
-            return $this->redirect(array('action' => 'index'));
 		}
 	}
 
