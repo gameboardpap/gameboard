@@ -1,5 +1,6 @@
 <?php
 App::uses('AppModel', 'Model');
+App::uses('UploadDir','Model');
 /**
  * Equipe Model
  *
@@ -7,6 +8,8 @@ App::uses('AppModel', 'Model');
  */
 class Equipe extends AppModel {
 
+    public $displayField = 'nome_equipe';
+    
 /**
  * Validation rules
  *
@@ -47,5 +50,15 @@ class Equipe extends AppModel {
 			'finderQuery' => '',
 		)
 	);
+        
+        public function beforeSave($options = array())  
+        {  
+            if(!empty($this->data['Equipe']['logo']['name'])) {
+                $this->UploadDir = new UploadDir();
+                $this->data['Equipe']['logo'] = $this->UploadDir->upload($this->data['Equipe']['logo'], "files/equipe_logo");  
+            } else {  
+                unset($this->data['Equipe']['logo']);  
+            }  
+        }
 
 }

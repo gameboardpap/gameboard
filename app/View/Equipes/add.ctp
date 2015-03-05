@@ -1,11 +1,11 @@
 <div class="equipes form">
-<?php echo $this->Form->create('Equipe'); ?>
+<?php echo $this->Form->create('Equipe',array('type' => 'file')); ?>
 	<fieldset>
 		<legend><?php echo __('Add Equipe'); ?></legend>
 	<?php
 		echo $this->Form->input('nome_equipe');
 		echo $this->Form->input('desc_equipe');
-		echo $this->Form->input('logo');
+		echo $this->Form->input('logo',array('type' => 'file'));
 	?>
 	</fieldset>
 <?php echo $this->Form->end(__('Submit')); ?>

@@ -6,14 +6,14 @@
  * and open the template in the editor.
  */
 
-class Upload extends AppModel {
+class UploadDir extends AppModel {
     /** 
          * Organiza o upload. 
          * @access public 
          * @param Array $imagem 
          * @param String $data 
         */   
-        public function upload($imagem = array(), $dir = 'files')  
+        public function upload($imagem = array(), $dir)  
         {  
             $dir = WWW_ROOT.$dir.DS;  
 
