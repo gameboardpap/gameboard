@@ -4,7 +4,7 @@
 		<legend><?php echo __('Edit Usuario'); ?></legend>
 	<?php
 		echo $this->Form->input('id');
-		echo $this->Form->input('nickname');
+		echo $this->Form->input('username');
 		echo $this->Form->input('email');
 		echo $this->Form->input('password');
 		echo $this->Form->input('primeiro_nome');

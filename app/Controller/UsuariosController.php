@@ -15,6 +15,16 @@ class UsuariosController extends AppController {
  */
 	public $components = array('Paginator');
 
+        
+        
+/**
+ * 
+ * 
+ */        
+        public function beforeFilter() {
+            $this->Auth->allow('add');
+        }
+        
 /**
  * index method
  *
@@ -39,6 +49,30 @@ class UsuariosController extends AppController {
 		$options = array('conditions' => array('Usuario.' . $this->Usuario->primaryKey => $id));
 		$this->set('usuario', $this->Usuario->find('first', $options));
 	}
+        
+/**
+ * view method
+ *
+ * @throws NotFoundException
+ * @param string $id
+ * @return void
+ */
+	public function login() {
+		if ($this->request->is('post')) {
+//                    var_dump($this->request->data);
+//                    die;
+                    if($this->Auth->login()) {
+                        $this->Session->setFlash('Bem vindo!');
+                        return $this->redirect($this->Auth->redirect());
+                    } else {
+                        $this->Session->setFlash("Usuário e/ou senha incorretos!");
+                    }
+		}
+	}
+        
+        public function logout() {
+            $this->redirect($this->Auth->logout());
+        }       
 
 /**
  * add method

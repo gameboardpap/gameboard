@@ -4,7 +4,7 @@
 	<thead>
 	<tr>
 			<th><?php echo $this->Paginator->sort('id'); ?></th>
-			<th><?php echo $this->Paginator->sort('nickname'); ?></th>
+			<th><?php echo $this->Paginator->sort('username'); ?></th>
 			<th><?php echo $this->Paginator->sort('email'); ?></th>
 			<th><?php echo $this->Paginator->sort('password'); ?></th>
 			<th><?php echo $this->Paginator->sort('primeiro_nome'); ?></th>
@@ -21,7 +21,7 @@
 	<?php foreach ($usuarios as $usuario): ?>
 	<tr>
 		<td><?php echo h($usuario['Usuario']['id']); ?>&nbsp;</td>
-		<td><?php echo h($usuario['Usuario']['nickname']); ?>&nbsp;</td>
+		<td><?php echo h($usuario['Usuario']['username']); ?>&nbsp;</td>
 		<td><?php echo h($usuario['Usuario']['email']); ?>&nbsp;</td>
 		<td><?php echo h($usuario['Usuario']['password']); ?>&nbsp;</td>
 		<td><?php echo h($usuario['Usuario']['primeiro_nome']); ?>&nbsp;</td>

@@ -1,13 +1,15 @@
 <?php
 App::uses('AppModel', 'Model');
 App::uses('UploadDir', 'Model');
+App::uses('SimplePasswordHasher', 'Controller/Component/Auth');
+
 /**
  * Usuario Model
  *
  */
 class Usuario extends AppModel {
 
-    public $displayField = 'nickname';
+    public $displayField = 'username';
     
 /**
  * Validation rules
@@ -15,7 +17,7 @@ class Usuario extends AppModel {
  * @var array
  */
 	public $validate = array(
-		'nickname' => array(
+		'username' => array(
 			'notEmpty' => array(
 				'rule' => array('notEmpty'),
 				//'message' => 'Your custom message here',
@@ -79,7 +81,10 @@ class Usuario extends AppModel {
 
         public function beforeSave($options = array())  
         {  
-            $this->data['Usuario']['password']=  sha1($this->data['Usuario']['password']);
+            $passwordHasher = new SimplePasswordHasher();
+            
+            $this->data['Usuario']['password']=  $passwordHasher->hash($this->data['Usuario']['password']);
+            
             if(!empty($this->data['Usuario']['avatar']['name'])) {
                 $this->UploadDir = new UploadDir();
                 $this->data['Usuario']['avatar'] = $this->UploadDir->upload($this->data['Usuario']['avatar'], "files/usuario_avatar");  

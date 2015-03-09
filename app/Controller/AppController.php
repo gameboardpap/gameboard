@@ -31,4 +31,39 @@ App::uses('Controller', 'Controller');
  * @link		http://book.cakephp.org/2.0/en/controllers.html#the-app-controller
  */
 class AppController extends Controller {
+    
+    public $theme = 'Principal';
+    
+    public $components = array(
+        'Session',
+        'Auth' => array(
+            'loginAction' => array(
+                'controller' => '',
+                'action' => 'Login'
+            ),
+            'LoginRedirect'=>array(
+                'controller'=>'',
+                'action'=>'Inicio'
+            ),
+            'LogoutRedirect'=>array(
+              'controller'=>'',
+                'action'=>'Login'
+            ),
+            'authError' => 'Você não possui acesso a este local.',
+            'authenticate' => array(
+                'Form' => array(
+                    'userModel'=>'Usuario',
+                    'fields' => array(
+                      'username' => 'username', //Default is 'username' in the userModel
+                      'password' => 'password'  //Default is 'password' in the userModel
+                    )
+                )
+            )
+        ) 
+    );
+    
+    public function beforeRender() {
+        $this->set('logado',$this->Auth->user());
+    }
+    
 }

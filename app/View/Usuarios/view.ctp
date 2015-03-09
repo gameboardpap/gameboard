@@ -8,7 +8,7 @@
 		</dd>
 		<dt><?php echo __('Nickname'); ?></dt>
 		<dd>
-			<?php echo h($usuario['Usuario']['nickname']); ?>
+			<?php echo h($usuario['Usuario']['username']); ?>
 			&nbsp;
 		</dd>
 		<dt><?php echo __('Email'); ?></dt>
