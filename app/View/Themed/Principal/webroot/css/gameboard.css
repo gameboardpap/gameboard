@@ -1,0 +1,42 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 11/03/2015, 09:30:22
+    Author     : CaioHenrique
+*/
+
+.navbar {
+    margin-bottom: 0px;
+}
+
+.section-breadcrumbs {
+    margin-top: 0px;
+    /*background: #DA1111;*/
+}
+
+img {
+    /*max-width:100%;*/
+}
+
+#content {
+	/*padding-top:90px;*/
+	/*padding-bottom:90px;    Height of the footer element */
+}
+/*.footer {
+   border-top: 4px solid #DA1111; 
+}
+
+a {
+  color: #DA1111;
+}
+
+.navbar-inverse .navbar-nav > .active > a, .navbar-inverse .navbar-nav > .active > a:hover, .navbar-inverse .navbar-nav > .active > a:focus {
+    background-color: #DA1111;
+}*/
+
+.dropdown-menu .divider {
+    height: 2px;
+}

@@ -42,8 +42,8 @@ class AppController extends Controller {
                 'action' => 'Login'
             ),
             'LoginRedirect'=>array(
-                'controller'=>'',
-                'action'=>'Inicio'
+                'controller'=>'Home',
+                'action'=>'inicio'
             ),
             'LogoutRedirect'=>array(
               'controller'=>'',
