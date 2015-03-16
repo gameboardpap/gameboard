@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-md-12">
-        <img src="http://127.0.0.1:40000/file:///C:/Program%20Files%20(x86)/Pinegrow%20Web%20Designer/placeholders/img2.jpg" height="200px" width="100%"/>
+        <center><?php echo $this->Html->image('banner.png'); ?></center>
     </div>
 </div>
 <hr/>

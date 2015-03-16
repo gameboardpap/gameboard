@@ -5,12 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-
-
-	
-	<script src="js/modernizr-2.6.2-respond-1.1.0.min.js"></script>
     
-    
+    <?php 
+        echo $this->Html->meta('icon');
+    ?>
     <?php
         echo $this->Html->css(array(
                                 'bootstrap.min',
@@ -29,7 +27,7 @@
             'modernizr'   
         ));
     ?>
-    
+    <title><?php echo $this->fetch('title'); ?></title>
 </head>
 <body>
 	<div id="container">
@@ -110,10 +108,13 @@
                     </header>
                 </div>
 		<div id="content">
+                    <div class="section section-breadcrumbs">
+                        <div class="container">
+                            <h1><?php echo $this->fetch('title'); ?></h1>
+                        </div>
+                    </div>
                     <div class="container">
-<!--                        <div class="row">-->
                             <?php echo $this->fetch('content'); ?>
-                        <!--</div>-->
                     </div>
 		</div>
             
@@ -135,7 +136,8 @@
                                 'jquery',
                                 'bootstrap.min',
                                 'jquery.easing.min',
-                                'scrolling-nav')
+                                'scrolling-nav',
+                                'modernizr')
                                 );
         echo $this->fetch('script');
     ?>

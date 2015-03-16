@@ -1,12 +1,4 @@
-<div class="section section-breadcrumbs">
-    <div class="container">
-        <!--<div class="row">-->
-            <!--<div class="col-md-12">-->
-                <h1>login</h1>
-            <!--</div>-->
-        <!--</div>-->
-    </div>
-</div>
+<?php $this->assign('title', 'Login'); ?>
 <div class="section">
     <div class="container">
         <div class="row">
