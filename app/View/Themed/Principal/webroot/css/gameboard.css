@@ -7,7 +7,9 @@ and open the template in the editor.
     Created on : 11/03/2015, 09:30:22
     Author     : CaioHenrique
 */
-
+* {
+    color:white;
+}
 .navbar {
     margin-bottom: 0px;
 }
@@ -22,15 +24,22 @@ img {
 }
 
 #content {
-	/*padding-top:90px;*/
+	padding-top:90px;
 	/*padding-bottom:90px;    Height of the footer element */
+        background-image: url(http://foolishfire.com/wp-content/uploads/2012/09/chalkboard-green.jpg);
 }
 /*.footer {
    border-top: 4px solid #DA1111; 
+}*/
+
+/*a {
+  color: #DA1111;
 }
 
-a {
-  color: #DA1111;
+a:hover {
+  color: #FF706D;
+  text-decoration:none;
+  outline: 0;
 }
 
 .navbar-inverse .navbar-nav > .active > a, .navbar-inverse .navbar-nav > .active > a:hover, .navbar-inverse .navbar-nav > .active > a:focus {
@@ -39,4 +48,9 @@ a {
 
 .dropdown-menu .divider {
     height: 2px;
+}
+
+.lateral-div {
+    margin-top:50px;
+    border-right: 1px solid #aec62c;
 }

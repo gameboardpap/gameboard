@@ -1,4 +1,19 @@
-<div class="jogos index">
+<div class="row">
+    <div class="col-md-3 col-xs-3 col-lg-3 col-sm-3">
+        <div class="lateral-div">
+            <h3>Pesquisar por gênero</h3>
+            
+            <?php 
+                foreach ($generos as $genero):
+            ?>
+            <p><?php echo $this->Html->link($genero["Genero"]["nome_genero"], array("controller"=>"generos","action"=>"view",$genero["Genero"]["id"])); ?></p>
+            <?php
+                endforeach;
+            ?>
+        </div>
+    </div>
+    <div class="col-md-9">
+        <div class="jogos index">
 	<h2><?php echo __('Jogos'); ?></h2>
 	<table cellpadding="0" cellspacing="0">
 	<thead>
@@ -64,3 +79,7 @@
 		<li><?php echo $this->Html->link(__('New Genero'), array('controller' => 'generos', 'action' => 'add')); ?> </li>
 	</ul>
 </div>
+
+    </div>
+</div>
+

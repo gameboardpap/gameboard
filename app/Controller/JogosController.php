@@ -21,8 +21,9 @@ class JogosController extends AppController {
  * @return void
  */
 	public function index() {
-		$this->Jogo->recursive = 0;
+		$this->Jogo->recursive = 1;
 		$this->set('jogos', $this->Paginator->paginate());
+                $this->set('generos', $this->Jogo->Genero->find('all'));
 	}
 
 /**
@@ -113,4 +114,14 @@ class JogosController extends AppController {
 		}
 		return $this->redirect(array('action' => 'index'));
 	}
+        
+        public function download($name) {
+            $path = "webroot".DS."files".DS."games".DS."jogos".DS.$name.DS;
+
+            $this->response->file($path, array(
+                'download' => true,
+                'name' => $name,
+            ));
+            return $this->response;
+        }
 }

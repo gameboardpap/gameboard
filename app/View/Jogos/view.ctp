@@ -1,95 +1,59 @@
-<div class="jogos view">
-<h2><?php echo __('Jogo'); ?></h2>
-	<dl>
-		<dt><?php echo __('Id'); ?></dt>
-		<dd>
-			<?php echo h($jogo['Jogo']['id']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Nome'); ?></dt>
-		<dd>
-			<?php echo h($jogo['Jogo']['nome']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Img'); ?></dt>
-		<dd>
-			<?php echo h($jogo['Jogo']['img']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Equipe'); ?></dt>
-		<dd>
-			<?php echo $this->Html->link($jogo['Equipe']['nome_equipe'], array('controller' => 'equipes', 'action' => 'view', $jogo['Equipe']['id'])); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Faixa Etaria'); ?></dt>
-		<dd>
-			<?php echo h($jogo['Jogo']['faixa_etaria']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('N Downloads'); ?></dt>
-		<dd>
-			<?php echo h($jogo['Jogo']['n_downloads']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Link'); ?></dt>
-		<dd>
-			<?php echo h($jogo['Jogo']['link']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Nome Amigavel'); ?></dt>
-		<dd>
-			<?php echo h($jogo['Jogo']['nome_amigavel']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Info Adicional'); ?></dt>
-		<dd>
-			<?php echo h($jogo['Jogo']['info_adicional']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Descricao'); ?></dt>
-		<dd>
-			<?php echo h($jogo['Jogo']['descricao']); ?>
-			&nbsp;
-		</dd>
-	</dl>
+<div class="row">
+    <div class="col-md-4">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="product-image-large">
+                    <ul class="bxslider">
+                        <li><?php echo $this->Html->image("/app/webroot//files/games/imgs/".$jogo['Jogo']['img']); ?></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-4 col-xs-4 col-sm-4 col-lg-4">
+                <div class="product-image-large">
+                    <div id="bx-pager">
+                      <a data-slide-index="0" href=""><?php echo $this->Html->image("/app/webroot//files/games/imgs/".$jogo['Jogo']['img']); ?></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-8 product-details text-left">
+        <h2><?php echo h($jogo['Jogo']['nome']); ?></h2>
+        <h3>Sinopse</h3>
+        <p><?php echo h($jogo['Jogo']['descricao']); ?></p>
+        <h3>Informações adicionais</h3>
+        <p><?php echo h($jogo['Jogo']['info_adicional']); ?></p>
+        
+        <hr/>
+        
+        <h3>Detalhes do jogo</h3>
+        <p><strong>Equipe desenvolvedora: </strong><?php echo $this->Html->link('<span class="label label-warning">'.$jogo['Equipe']['nome_equipe'].'</span>', array('controller' => 'equipes', 'action' => 'view', $jogo['Equipe']['id']), array('escape'=>false)); ?></p>
+        <p><strong>Última atualização: </strong><?php echo h($jogo['Jogo']['modified']); ?></p>
+        <p><strong>Faixa Etária: </strong><?php echo h($jogo['Jogo']['faixa_etaria']); ?></p>
+        <p><strong>Gêneros: </strong>
+            <?php foreach ($jogo['Genero'] as $genero): ?>
+                <?php echo $this->Html->link('<span class="label label-info">'.$genero['nome_genero'].'</span>', array('controller' => 'generos', 'action' => 'view', $genero['id']), array('escape'=>false)); ?>
+            <?php endforeach; ?>
+        </p>
+    </div>
+    
 </div>
-<div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
-	<ul>
-		<li><?php echo $this->Html->link(__('Edit Jogo'), array('action' => 'edit', $jogo['Jogo']['id'])); ?> </li>
-		<li><?php echo $this->Form->postLink(__('Delete Jogo'), array('action' => 'delete', $jogo['Jogo']['id']), array(), __('Are you sure you want to delete # %s?', $jogo['Jogo']['id'])); ?> </li>
-		<li><?php echo $this->Html->link(__('List Jogos'), array('action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Jogo'), array('action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Equipes'), array('controller' => 'equipes', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Equipe'), array('controller' => 'equipes', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Generos'), array('controller' => 'generos', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Genero'), array('controller' => 'generos', 'action' => 'add')); ?> </li>
-	</ul>
+
+<div class="row">
+    
+    <div class="col-md-8 text-center">
+        <?php echo $this->Html->link("Baixar",array('controller'=>'Jogos', 'action'=>'download/'.$jogo['Jogo']['link']),array("class"=>"btn btn-default btn-lg"));?>
+    </div>
+    
 </div>
-<div class="related">
-	<h3><?php echo __('Related Generos'); ?></h3>
-	<?php if (!empty($jogo['Genero'])): ?>
-	<table cellpadding = "0" cellspacing = "0">
-	<tr>
-		<th><?php echo __('Id'); ?></th>
-		<th><?php echo __('Nome Genero'); ?></th>
-		<th><?php echo __('Created'); ?></th>
-		<th><?php echo __('Modified'); ?></th>
-		<th class="actions"><?php echo __('Actions'); ?></th>
-	</tr>
-	<?php foreach ($jogo['Genero'] as $genero): ?>
-		<tr>
-			<td><?php echo $genero['id']; ?></td>
-			<td><?php echo $genero['nome_genero']; ?></td>
-			<td><?php echo $genero['created']; ?></td>
-			<td><?php echo $genero['modified']; ?></td>
-			<td class="actions">
-				<?php echo $this->Html->link(__('View'), array('controller' => 'generos', 'action' => 'view', $genero['id'])); ?>
-				<?php echo $this->Html->link(__('Edit'), array('controller' => 'generos', 'action' => 'edit', $genero['id'])); ?>
-				<?php echo $this->Form->postLink(__('Delete'), array('controller' => 'generos', 'action' => 'delete', $genero['id']), array(), __('Are you sure you want to delete # %s?', $genero['id'])); ?>
-			</td>
-		</tr>
-	<?php endforeach; ?>
-	</table>
-<?php endif; ?>
-</div>
+
+<script type="text/javascript">
+    $('.bxslider').bxSlider({
+      pagerCustom: '#bx-pager'
+    });
+</script>

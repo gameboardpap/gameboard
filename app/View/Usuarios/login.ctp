@@ -2,7 +2,7 @@
 <div class="section">
     <div class="container">
         <div class="row">
-            <div class="col-md-4 col-md-offset-3">
+            <div class="col-md-7 text-center">
                 <?php 
                     echo $this->Form->create('Usuario',
                         array(
@@ -42,14 +42,20 @@
                         )
                     );    
                 ?>
-                <?php echo $this->Form->end(array(
-                    'label'=>'Entrar',
-                    'class'=>'btn btn-default',
-                    'before'=>'<div class="form-group"> <div class="col-md-2 col-md-offset-1">',
-                    'after'=>'</div> </div>'
-                    )); 
-                ?>
-                </form>
+                <div class="row">
+                    <div class="col-md-7 text-right">
+                        <?php echo $this->Form->end(array(
+                            'label'=>'Entrar',
+                            'class'=>'btn btn-default',
+                            'before'=>'',
+                            'after'=>''
+                            )); 
+                        ?>
+                    </div>
+                    <div class="col-md-5 text-left">    
+                        <?php echo $this->Html->link('Esqueci minha senha',array('controller'=>'usuarios','action'=>'esqueciMinhaSenha'), array('class'=>'btn btn-orange')); ?>
+                    </div>
+                </div>
             </div>
             <div class="col-md-4 col-md-offset-1">
                 <h3>Não possui cadastro?</h3>

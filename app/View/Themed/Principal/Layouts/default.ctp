@@ -18,7 +18,9 @@
                                 'icomoon-social',
                                 'font-awesome.min',
                                 'bootstrap-notify',
-                                'gameboard')); 
+                                'gameboard',
+                                'jquery.bxslider'
+                                )); 
         echo $this->fetch('css');
     ?>
     <?php
@@ -32,7 +34,7 @@
 <body>
 	<div id="container">
 		<div id="header">
-                    <header class="navbar navbar-inverse navbar-static-top" role="banner">
+                    <header class="navbar navbar-inverse navbar-fixed-top" role="banner">
                         <div class="container">
                             <div class="navbar-header">
                                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -137,22 +139,11 @@
                                 'bootstrap.min',
                                 'jquery.easing.min',
                                 'scrolling-nav',
-                                'modernizr')
+                                'modernizr',
+                                'jquery.bxslider.min',
+                                )
                                 );
         echo $this->fetch('script');
     ?>
-    <script type="text/javascript">
-//        $(document).ready(function(){
-//        var nav = $('.navbar');   
-//            $(window).scroll(function () { 
-//                    if ($(this).scrollTop() > 100) { 
-//                            nav.addClass("navbar-fixed-top"); 
-//                    } else { 
-//                            nav.removeClass("navbar-fixed-top"); 
-//                    } 
-//            });  
-//        });
-        
-    </script>
 </body>
 </html>
