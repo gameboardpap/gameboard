@@ -8,7 +8,7 @@ and open the template in the editor.
     Author     : CaioHenrique
 */
 * {
-    color:white;
+    /*color:white;*/
 }
 .navbar {
     margin-bottom: 0px;
@@ -26,7 +26,7 @@ img {
 #content {
 	padding-top:90px;
 	/*padding-bottom:90px;    Height of the footer element */
-        background-image: url(http://foolishfire.com/wp-content/uploads/2012/09/chalkboard-green.jpg);
+        /*background-image: url(http://foolishfire.com/wp-content/uploads/2012/09/chalkboard-green.jpg);*/
 }
 /*.footer {
    border-top: 4px solid #DA1111; 
@@ -51,6 +51,17 @@ a:hover {
 }
 
 .lateral-div {
-    margin-top:50px;
+/*    margin-top:50px;*/
     border-right: 1px solid #aec62c;
+}
+
+/*.list-jogo {
+    border: 1px black solid;
+    width: 100%;
+}*/
+
+.media-object {
+    width: 64px;
+    height: 64px;
+    margin:5px;
 }
