@@ -33,8 +33,9 @@
                            ?>
                           </div>
                           <div class="media-body">
-                            <h4 class="media-heading"><?php echo $jogo['Jogo']['nome']; ?></h4>
-                            
+                            <h4 class="media-heading">
+                                <?php echo $jogo['Jogo']['nome']; ?>
+                            </h4>
                           </div>
                         </div>
                     </div>

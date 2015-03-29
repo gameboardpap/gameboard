@@ -37,6 +37,7 @@ class JogosController extends AppController {
 //		if (!$this->Jogo->exists($nome_amigavel)) {
 //			throw new NotFoundException(__('Invalid jogo'));
 //		}
+                $this->Jogo->recursive = 2;
 		$options = array('conditions' => array('Jogo.nome_amigavel' => $nome_amigavel));
 		$this->set('jogo', $this->Jogo->find('first', $options));
 	}
@@ -47,10 +48,6 @@ class JogosController extends AppController {
  * @return void
  */
 	public function add() {
-            
-                if ($this->request->is('ajax')) {
-                   echo json_encode("crazy"); 
-                }
                 
 		if ($this->request->is('post')) {
 			$this->Jogo->create();

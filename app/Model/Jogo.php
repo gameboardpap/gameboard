@@ -83,6 +83,14 @@ class Jogo extends AppModel {
 			'order' => ''
 		)
 	);
+        
+        public $hasMany = array(
+                'Comentario'=> array(
+                    'className'=>'Comentario',
+                    'foreignKey' => 'jogo_id',
+                    'order'=>'Comentario.id DESC'
+                )
+        );
 
 /**
  * hasAndBelongsToMany associations

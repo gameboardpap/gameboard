@@ -19,7 +19,8 @@
                                 'font-awesome.min',
                                 'bootstrap-notify',
                                 'gameboard',
-                                'jquery.bxslider'
+                                'jquery.bxslider',
+                                'comments'
                                 )); 
         echo $this->fetch('css');
     ?>
