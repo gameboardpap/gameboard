@@ -20,7 +20,8 @@
                                 'bootstrap-notify',
                                 'gameboard',
                                 'jquery.bxslider',
-                                'comments'
+                                'comments',
+                                'bootstrap-lightbox.min'
                                 )); 
         echo $this->fetch('css');
     ?>
@@ -142,6 +143,7 @@
                                 'scrolling-nav',
                                 'modernizr',
                                 'jquery.bxslider.min',
+                                'bootstrap-lightbox.min'
                                 )
                                 );
         echo $this->fetch('script');

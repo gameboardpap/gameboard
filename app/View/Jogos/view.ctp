@@ -31,24 +31,24 @@
         <p><?php echo h($jogo['Jogo']['info_adicional']); ?></p>
         
         <hr/>
-        
-        <h3>Detalhes do jogo</h3>
-        <p><strong>Equipe desenvolvedora: </strong><?php echo $this->Html->link('<span class="label label-warning">'.$jogo['Equipe']['nome_equipe'].'</span>', array('controller' => 'equipes', 'action' => 'view', $jogo['Equipe']['id']), array('escape'=>false)); ?></p>
-        <p><strong>Última atualização: </strong><?php echo h($jogo['Jogo']['modified']); ?></p>
-        <p><strong>Faixa Etária: </strong><?php echo h($jogo['Jogo']['faixa_etaria']); ?></p>
-        <p><strong>Gêneros: </strong>
-            <?php foreach ($jogo['Genero'] as $genero): ?>
-                <?php echo $this->Html->link('<span class="label label-info">'.$genero['nome_genero'].'</span>', array('controller' => 'generos', 'action' => 'view', $genero['id']), array('escape'=>false)); ?>
-            <?php endforeach; ?>
-        </p>
+        <div class="row">
+            <div class="col-md-8">
+                <h3>Detalhes do jogo</h3>
+                <p><strong>Equipe desenvolvedora: </strong><?php echo $this->Html->link('<span class="label label-warning">'.$jogo['Equipe']['nome_equipe'].'</span>', array('controller' => 'equipes', 'action' => 'view', $jogo['Equipe']['id']), array('escape'=>false)); ?></p>
+                <p><strong>Última atualização: </strong><?php echo h($jogo['Jogo']['modified']); ?></p>
+                <p><strong>Faixa Etária: </strong><?php echo h($jogo['Jogo']['faixa_etaria']); ?></p>
+                <p><strong>Gêneros: </strong>
+                    <?php foreach ($jogo['Genero'] as $genero): ?>
+                        <?php echo $this->Html->link('<span class="label label-info">'.$genero['nome_genero'].'</span>', array('controller' => 'generos', 'action' => 'view', $genero['id']), array('escape'=>false)); ?>
+                    <?php endforeach; ?>
+                </p>
+            </div>
+            <div class="col-md-4">
+                <?php echo $this->Html->link("Baixar",array('controller'=>'Jogos', 'action'=>'download/'.$jogo['Jogo']['link']),array("class"=>"btn btn-default btn-lg"));?>
+            </div>
+        </div>
     </div>
     
-</div>
-
-<div class="row">
-    <div class="col-md-8 text-center">
-        <?php echo $this->Html->link("Baixar",array('controller'=>'Jogos', 'action'=>'download/'.$jogo['Jogo']['link']),array("class"=>"btn btn-default btn-lg"));?>
-    </div>
 </div>
 <legend>Feedbacks</legend>
 <?php foreach ($jogo['Comentario'] as $comentario): ?>
@@ -107,6 +107,25 @@
         </div>
     </div>
 <?php endforeach; ?>
+
+<!-- MODAL -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+<h4 class="modal-title" id="myModalLabel">Modal title</h4>
+</div>
+<div class="modal-body">
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+<button type="button" class="btn btn-primary">Save changes</button>
+</div>
+</div>
+</div>
+</div>
+<!-- FIM MODAL -->
 <?php echo $this->Html->scriptBlock(
         "
             $('.bxslider').bxSlider({
