@@ -21,7 +21,7 @@ class ComentariosController extends AppController {
  * @return void
  */
 	public function index() {
-		$this->Comentario->recursive = 0;
+		$this->Comentario->recursive = 2;
 		$this->set('comentarios', $this->Paginator->paginate());
 	}
 
@@ -50,7 +50,14 @@ class ComentariosController extends AppController {
 			$this->Comentario->create();
 			if ($this->Comentario->save($this->request->data)) {
 				$this->Session->setFlash(__('The comentario has been saved.'));
-				return $this->redirect(array('action' => 'index'));
+				if(!$this->request->is('ajax')) {
+                                        return $this->redirect(array('action' => 'index'));
+                                } else {
+                                    $this->layout='ajax';
+                                    $options=array('order'=>'Comentario.id DESC');
+                                    $this->set('comentarios', $this->Comentario->find('all',$options));
+                                    $this->render('view_ajax');
+                                }
 			} else {
 				$this->Session->setFlash(__('The comentario could not be saved. Please, try again.'));
 			}
