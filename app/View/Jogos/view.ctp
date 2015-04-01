@@ -122,43 +122,50 @@
 
 <!-- MODAL -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-<div class="modal-dialog">
-<div class="modal-content">
-<div class="modal-header">
-<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-<h4 class="modal-title" id="myModalLabel">Modal title</h4>
-</div>
-<div class="modal-body">
-    <?php echo $this->Form->create('Comentario',array('url' => array('controller' => '#', 'action' => '#'),'class'=>'form-comment')); ?>
-	<fieldset>
-		<legend><?php echo __('Add Comentario'); ?></legend>
-	<?php
-		echo $this->Form->input('usuario_id',array('value'=>$logado['id'],'type'=>'hidden'));
-		echo $this->Form->input('jogo_id', array('value'=>$jogo['Jogo']['id'],'type'=>'hidden'));
-		echo $this->Form->input('comentario');
-                echo $this->Form->input('pros');
-                echo $this->Form->input('contras');
-	?>
-	</fieldset>
-<?php echo $this->Form->end("Enviar feedback"); ?>
-</div>
-<div class="modal-footer">
-<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-<button type="button" class="btn btn-primary">Save changes</button>
-</div>
-</div>
-</div>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Adicionando novo feedback</h4>
+            </div>
+            <div class="modal-body">
+                <?php echo $this->Form->create('Comentario', array('url' => array('controller' => 'comentarios', 'action' => 'add'),'class'=>'form-comment form-horizontal','role' => 'form',
+                                        'inputDefaults' => array(
+                                            'before' => '<div class="form-group">',
+                                            'between' => '<div class="col-md-8">',
+                                            'after' => '</div> </div>',
+                                            'label'=>array(
+                                                'class'=>'col-md-4 control-label'                            
+                                            ),
+                                            'class'=>'form-control'))); ?>
+                    <fieldset>
+                    <?php
+                            echo $this->Form->input('usuario_id',array('value'=>$logado['id'],'type'=>'hidden'));
+                            echo $this->Form->input('jogo_id', array('value'=>$jogo['Jogo']['id'],'type'=>'hidden'));
+                            echo $this->Form->input('comentario');
+                            echo $this->Form->input('pros');
+                            echo $this->Form->input('contras');
+                    ?>
+                    </fieldset>
+            </div>
+            <div class="modal-footer">
+                <div class="row">
+                    <div class="col-md-2 col-md-offset-7">
+                        <button class="btn btn-red" data-dismiss="modal">Cancelar</button>
+                    </div>
+                    <div class="col-md-3">
+                        <?php echo $this->Form->end(array('label'=>'Enviar feedback','class'=>'btn btn-default')); ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <!-- FIM MODAL -->
-<?php //echo $this->Html->scriptBlock(); 
-?>
-<script type="text/javascript">
-    $(document).ready(function(){
+<?php echo $this->Html->scriptBlock('
+        
+            $(document).ready(function(){
         $(".form-comment").submit(function(){
-            
-            alert("entrou");
-            
-            
             var url = $(this).attr("action");
             var este = $(this);
             $.ajax({
@@ -173,4 +180,9 @@
             return false;
         });
     });
-</script>
+        
+        ',array("inline"=>false)); 
+?>
+<!--<script type="text/javascript">
+
+</script>-->
