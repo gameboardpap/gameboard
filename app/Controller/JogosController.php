@@ -112,13 +112,20 @@ class JogosController extends AppController {
 		return $this->redirect(array('action' => 'index'));
 	}
         
-        public function download($name) {
-            $path = "webroot".DS."files".DS."games".DS."jogos".DS.$name.DS;
+        public function download($id) {
+            $resposta=$this->Jogo->beforeDownload($this->Auth->user(),$id);
+            
+            if($resposta) {            
+                $path = "webroot".DS."files".DS."games".DS."jogos".DS.$resposta.DS;
 
-            $this->response->file($path, array(
-                'download' => true,
-                'name' => $name,
-            ));
-            return $this->response;
+                $this->response->file($path, array(
+                    'download' => true,
+                    'name' => $resposta,
+                ));
+                return $this->response;
+            } else 
+            {
+                $this->Session->setFlash('Você possui 5 jogos que baixou e não deu feedback! Dê feedback nestes jogos para continuar baixando!');
+            }
         }
 }

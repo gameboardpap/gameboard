@@ -89,6 +89,10 @@ class Jogo extends AppModel {
                     'className'=>'Comentario',
                     'foreignKey' => 'jogo_id',
                     'order'=>'Comentario.id DESC'
+                ),
+                'Download'=>array(
+                    'className'=>'Download',
+                    'foreignKey'=>'jogo_id'
                 )
         );
 
@@ -115,7 +119,9 @@ class Jogo extends AppModel {
         
         public function beforeSave($options = array())
         {
-            $this->data['Jogo']['nome_amigavel']=  strtolower(Inflector::slug($this->data['Jogo']['nome']));
+            if(isset($this->data['Jogo']['nome'])) {
+                $this->data['Jogo']['nome_amigavel']=  strtolower(Inflector::slug($this->data['Jogo']['nome']));
+            }
             
             if(!empty($this->data['Jogo']['img']['name'])) {
                 $this->UploadDir = new UploadDir();
@@ -130,6 +136,34 @@ class Jogo extends AppModel {
             } else {  
                 unset($this->data['Jogo']['link']);  
             }
+        }
+        
+        public function beforeDownload($user,$id)
+        {
+            $feedback = $this->Download->find('first', array('conditions' => array('Download.usuario_id' => $user['id'],'Download.jogo_id'=>$id)));
+            $jogo = $this->find('first',array('conditions'=>array('Jogo.id'=>$id)));
+            
+            if(empty($feedback))
+            {
+                $count=$this->Download->find('count', array('conditions' => array('Download.usuario_id' => $user['id'],'Download.feedback'=>false)));
+                
+                if($count<=5)
+                {
+                    $dadosDL['Download']['jogo_id']=$id;
+                    $dadosDL['Download']['usuario_id']=$user['id'];
+                    
+                    $this->Download->save($dadosDL);
+                    
+                    $dadosJG['Jogo']['id']=$jogo['Jogo']['id'];
+                    $dadosJG['Jogo']['n_downloads']=$jogo['Jogo']['n_downloads']+1;
+                    
+                    $this->save($dadosJG);                    
+                } else {
+                    return false;
+                }
+            }
+            
+            return $jogo['Jogo']['link'];
         }
 
 }

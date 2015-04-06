@@ -21,7 +21,8 @@
                                 'gameboard',
                                 'jquery.bxslider',
                                 'comments',
-                                'bootstrap-lightbox.min'
+                                'bootstrap-lightbox.min',
+                                'cs-rows'
                                 )); 
         echo $this->fetch('css');
     ?>

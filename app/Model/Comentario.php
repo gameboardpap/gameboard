@@ -44,6 +44,36 @@ class Comentario extends AppModel {
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
 		),
+                'nota' => array(
+			'notEmpty' => array(
+				'rule' => array('notEmpty'),
+				//'message' => 'Your custom message here',
+				//'allowEmpty' => false,
+				//'required' => false,
+				//'last' => false, // Stop validation after this rule
+				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+			),
+		),
+                'pros' => array(
+			'notEmpty' => array(
+				'rule' => array('notEmpty'),
+				//'message' => 'Your custom message here',
+				//'allowEmpty' => false,
+				//'required' => false,
+				//'last' => false, // Stop validation after this rule
+				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+			),
+		),
+                'contras' => array(
+			'notEmpty' => array(
+				'rule' => array('notEmpty'),
+				//'message' => 'Your custom message here',
+				//'allowEmpty' => false,
+				//'required' => false,
+				//'last' => false, // Stop validation after this rule
+				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+			),
+		),
 	);
 
 	//The Associations below have been created with all possible keys, those that are not needed can be removed
@@ -69,4 +99,15 @@ class Comentario extends AppModel {
 			'order' => ''
 		)
 	);
+        
+        public function afterSave($created, $options = array())
+        {
+            $this->virtualFields['nota_total'] = 'AVG(Comentario.nota)';
+            $nota = $this->find('first', array('fields' => array('nota_total')));
+            $jogo['Jogo']['id']=$this->data['Comentario']['jogo_id'];
+            $jogo['Jogo']['nota']=$nota['Comentario']['nota_total'];
+            
+            $this->Jogo->save($jogo);
+            
+        }
 }

@@ -87,7 +87,7 @@ a:hover {
     padding: 5px 14px;
     position: absolute;
     right: 10px;
-    z-index: 9994;
+    z-index: 10;
 }
 .member-photo .member-name span {
     border-radius: 2px;
@@ -122,4 +122,51 @@ a:hover {
 
 .comment-date {
     margin-right:0;
+}
+
+.pagination > .active > a, .pagination > .active > span {
+    border-bottom: 3px solid #aec62c;
+    color: #666666;
+}
+
+.pagination > .active > a:hover,
+.pagination > .active > span:hover {
+  color: #666666;
+  background-color: transparent;
+  border-bottom: 3px solid #aec62c;
+  cursor: default;
+}
+
+.pagination > li > a:hover,
+.pagination > li > span:hover {
+  z-index: 2;
+  color: #ffffff;
+  background-color: #aec62c;
+  border-color: #aec62c;
+  cursor: pointer;
+}
+.btn-blog {
+    color: #ffffff;
+    background-color: #37d980;
+    border-color: #37d980;
+    border-radius:0;
+    margin-bottom:10px
+}
+
+.img-thumbnail {
+    margin-top:10px;
+     margin-bottom:5px;
+}
+.blogShort{ 
+    border-bottom:1px solid #ddd;
+    margin-top: 5px;
+}
+
+.img-index-game {
+    height:90px !important;
+    width: 100px !important;
+}
+
+.fundo-verde {
+    background-color:#aec62c;
 }

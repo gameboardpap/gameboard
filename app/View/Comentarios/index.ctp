@@ -1,58 +1,76 @@
-<div class="comentarios index">
-	<h2><?php echo __('Comentarios'); ?></h2>
-	<table cellpadding="0" cellspacing="0">
-	<thead>
-	<tr>
-			<th><?php echo $this->Paginator->sort('id'); ?></th>
-			<th><?php echo $this->Paginator->sort('usuario_id'); ?></th>
-			<th><?php echo $this->Paginator->sort('jogo_id'); ?></th>
-			<th><?php echo $this->Paginator->sort('comentario'); ?></th>
-			<th><?php echo $this->Paginator->sort('referencia'); ?></th>
-			<th class="actions"><?php echo __('Actions'); ?></th>
-	</tr>
-	</thead>
-	<tbody>
-	<?php foreach ($comentarios as $comentario): ?>
-	<tr>
-		<td><?php echo h($comentario['Comentario']['id']); ?>&nbsp;</td>
-		<td>
-			<?php echo $this->Html->link($comentario['Usuario']['username'], array('controller' => 'usuarios', 'action' => 'view', $comentario['Usuario']['id'])); ?>
-		</td>
-		<td>
-			<?php echo $this->Html->link($comentario['Jogo']['id'], array('controller' => 'jogos', 'action' => 'view', $comentario['Jogo']['id'])); ?>
-		</td>
-		<td><?php echo h($comentario['Comentario']['comentario']); ?>&nbsp;</td>
-		<td><?php echo h($comentario['Comentario']['referencia']); ?>&nbsp;</td>
-		<td class="actions">
-			<?php echo $this->Html->link(__('View'), array('action' => 'view', $comentario['Comentario']['id'])); ?>
-			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $comentario['Comentario']['id'])); ?>
-			<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $comentario['Comentario']['id']), array(), __('Are you sure you want to delete # %s?', $comentario['Comentario']['id'])); ?>
-		</td>
-	</tr>
+<?php foreach ($comentarios as $comentario): ?>
+    <div class="row">
+        <div class="col-md-2 col-sm-2 hidden-xs">
+            <div class="thumbnail member-photo">
+            <?php if(empty($comentario['Usuario']['avatar'])): ?>
+                <img class="img-responsive" src="http://www.keita-gaming.com/assets/profile/default-avatar-c5d8ec086224cb6fc4e395f4ba3018c2.jpg" />
+            <?php else: ?>
+                <?php echo $this->Html->image('/app/webroot//files/usuario_avatar/'.$comentario['Usuario']['avatar']); ?>
+                <!--<img class="img-responsive" src="http://www.keita-gaming.com/assets/profile/default-avatar-c5d8ec086224cb6fc4e395f4ba3018c2.jpg" />-->
+            <?php endif; ?>
+            <div class="member-name">
+                <?php echo $comentario['Usuario']['username']; ?>
+                <span>Lorde supremo</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-10 col-sm-10">
+            <div class="panel panel-default arrow left">
+                <div class="panel-body">
+                    <div class="comment-post">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <legend>Comentários</legend>
+                                <p>
+                                    <?php echo $comentario['Comentario']['comentario']; ?>
+                                </p>
+                            </div>
+                            <div class="col-md-2">
+                                <legend>Nota</legend>
+                                <span class="label label-default"><?php echo $comentario['Comentario']['nota']; ?>.0</span>
+                            </div>
+                        </div>                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <legend class="pros">Prós</legend>
+                                <p class="pros">
+                                    <?php echo $comentario['Comentario']['pros']; ?>
+                                </p>
+                            </div>
+                            <div class="col-md-6">
+                                <legend class="contras">Contras</legend>
+                                <p class="contras">
+                                    <?php echo $comentario['Comentario']['contras']; ?>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <div class="comment-user"><i class="fa fa-user"></i> <?php echo $comentario['Usuario']['username']; ?></div>
+                        <div class="comment-date"><i class="fa fa-clock-o"></i> <?php echo date('d/m/y H:i',strtotime($comentario['Comentario']['created'])); ?></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 <?php endforeach; ?>
-	</tbody>
-	</table>
-	<p>
-	<?php
-	echo $this->Paginator->counter(array(
-	'format' => __('Page {:page} of {:pages}, showing {:current} records out of {:count} total, starting on record {:start}, ending on {:end}')
-	));
-	?>	</p>
-	<div class="paging">
-	<?php
-		echo $this->Paginator->prev('< ' . __('previous'), array(), null, array('class' => 'prev disabled'));
-		echo $this->Paginator->numbers(array('separator' => ''));
-		echo $this->Paginator->next(__('next') . ' >', array(), null, array('class' => 'next disabled'));
-	?>
-	</div>
-</div>
-<div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
-	<ul>
-		<li><?php echo $this->Html->link(__('New Comentario'), array('action' => 'add')); ?></li>
-		<li><?php echo $this->Html->link(__('List Usuarios'), array('controller' => 'usuarios', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Usuario'), array('controller' => 'usuarios', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Jogos'), array('controller' => 'jogos', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Jogo'), array('controller' => 'jogos', 'action' => 'add')); ?> </li>
-	</ul>
+<div class="row">
+    <div class="col-md-12">
+        <div class="text-center">
+            <ul class="pagination">
+                <?php
+                    echo $this->Paginator->numbers(array(
+                            'separator' => null,
+                            'modulus'=>5,
+                            'ellipsis'=>'...',
+                            'tag'=>'li',
+                            'class '=>'paginacao-comments',
+                            'currentTag'=>'a',
+                            'currentClass'=>'active'
+                            )
+                    );
+                ?>
+            </ul>
+        </div>
+    </div>
 </div>

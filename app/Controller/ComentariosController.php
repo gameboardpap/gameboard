@@ -14,14 +14,28 @@ class ComentariosController extends AppController {
  * @var array
  */
 	public $components = array('Paginator');
-
+//
+        
 /**
  * index method
  *
  * @return void
  */
-	public function index() {
+	public function index($id=null) {
 		$this->Comentario->recursive = 2;
+                if(empty($id))
+                {
+                    $id=$this->request->data['id'];
+                }
+                $paginate = array(
+                    'conditions'=>array('Comentario.jogo_id'=>$id),
+                    'limit' => 10,
+                     'order' => array(
+                         'Comentario.id' => 'DESC'
+                     )
+                 );
+                $this->Paginator->settings = $paginate;
+                $this->layout='ajax';
 		$this->set('comentarios', $this->Paginator->paginate());
 	}
 
@@ -45,7 +59,7 @@ class ComentariosController extends AppController {
  *
  * @return void
  */
-	public function add() {
+	public function add($id=null) {
 		if ($this->request->is('post')) {
 			$this->Comentario->create();
 			if ($this->Comentario->save($this->request->data)) {
@@ -53,10 +67,7 @@ class ComentariosController extends AppController {
 				if(!$this->request->is('ajax')) {
                                         return $this->redirect(array('action' => 'index'));
                                 } else {
-                                    $this->layout='ajax';
-                                    $options=array('order'=>'Comentario.id DESC');
-                                    $this->set('comentarios', $this->Comentario->find('all',$options));
-                                    $this->render('view_ajax');
+                                    return $this->redirect(array('action'=>'index',$id));
                                 }
 			} else {
 				$this->Session->setFlash(__('The comentario could not be saved. Please, try again.'));

@@ -27,6 +27,7 @@
         Router::connect('/Cadastrar', array('controller' => 'Usuarios', 'action' => 'add'));
         Router::connect('/Sair', array('controller' => 'Usuarios', 'action' => 'logout'));
         Router::connect('/Login', array('controller' => 'Usuarios', 'action' => 'login'));
+        Router::connect('/jogos/:nome_amigavel', array('controller' => 'Jogos', 'action' => 'view'),    array('pass' => array('nome_amigavel')));
         Router::connect('/', array('controller' => 'Home', 'action' => 'inicio'));
 /**
  * ...and connect the rest of 'Pages' controller's URLs.
