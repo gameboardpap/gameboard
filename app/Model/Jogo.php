@@ -69,6 +69,7 @@ class Jogo extends AppModel {
 
 	//The Associations below have been created with all possible keys, those that are not needed can be removed
 
+        
 /**
  * belongsTo associations
  *
@@ -117,24 +118,12 @@ class Jogo extends AppModel {
 		)
 	);
         
+        public $actsAs = array('Containable');
+        
         public function beforeSave($options = array())
         {
             if(isset($this->data['Jogo']['nome'])) {
                 $this->data['Jogo']['nome_amigavel']=  strtolower(Inflector::slug($this->data['Jogo']['nome']));
-            }
-            
-            if(!empty($this->data['Jogo']['img']['name'])) {
-                $this->UploadDir = new UploadDir();
-                $this->data['Jogo']['img'] = $this->UploadDir->upload($this->data['Jogo']['img'], "files/games/imgs");  
-            } else {  
-                unset($this->data['Jogo']['img']);  
-            }
-            
-            if(!empty($this->data['Jogo']['link']['name'])) {
-                $this->UploadDir = new UploadDir();
-                $this->data['Jogo']['link'] = $this->UploadDir->upload($this->data['Jogo']['link'], "files/games/jogos");  
-            } else {  
-                unset($this->data['Jogo']['link']);  
             }
         }
         
@@ -165,5 +154,95 @@ class Jogo extends AppModel {
             
             return $jogo['Jogo']['link'];
         }
+        
+        public function getJogos($genero_amigavel=null,$busca=null){
+                        
+		$this->recursive = 1;
+                
+                $conditions="";
+                
+                if($genero_amigavel) {
+                    
+                    $this->bindModel(array('hasOne' => array('GenerosJogo')), false);
+                    
+                    $genero_id=$this->Genero->getIdByAmigavel($genero_amigavel);
+                    
+                    $conditions=array('GenerosJogo.genero_id'=>$genero_id);                   
+                   
+                }
+                
+                $paginate = array(
+                    'contains'=>array('Genero','GenerosJogo','Equipe'),
+                    'conditions'=>array($conditions),
+                    'limit' => 10,
+                     'order' => array(
+                         'Jogo.created' => 'DESC'
+                     )
+                );
+            
+            return $paginate;
+        }
+        
+        public function formatarBusca($busca=null) {
+            
+            $busca=array('Jogo.nome_amigavel LIKE '=> "%".strtolower(Inflector::slug($busca))."%");
+            
+            return $busca;
+        }
+        
+        
+//        public function uploadImage() {
+//            if(!empty($this->data['Jogo']['img']['name'])) {
+//                $this->UploadDir = new UploadDir();
+//                $this->data['Jogo']['img'] = $this->UploadDir->upload($this->data['Jogo']['img'], "files/games/imgs");  
+//            } else {  
+//                unset($this->data['Jogo']['img']);  
+//            }
+//            
+//            if(!empty($this->data['Jogo']['link']['name'])) {
+//                $this->UploadDir = new UploadDir();
+//                $this->data['Jogo']['link'] = $this->UploadDir->upload($this->data['Jogo']['link'], "files/games/jogos");  
+////                $uploader = new DropboxUploader("projetogameboard@gmail.com", "papupgame2015");
+////                $uploader->upload($this->data['Jogo']['link']['tmp_name'], $this->data['Jogo']['nome_amigavel'], $this->data['Jogo']['nome_amigavel']);
+//            } else {  
+//                unset($this->data['Jogo']['link']);  
+//            }
+//        }
+//        
+//        public function uploadMedia() {
+//            if(!empty($this->data['Jogo']['img']['name'])) {
+//                $this->UploadDir = new UploadDir();
+//                $this->data['Jogo']['img'] = $this->UploadDir->upload($this->data['Jogo']['img'], "files/games/imgs");  
+//            } else {  
+//                unset($this->data['Jogo']['img']);  
+//            }
+//            
+//            if(!empty($this->data['Jogo']['link']['name'])) {
+//                $this->UploadDir = new UploadDir();
+//                $this->data['Jogo']['link'] = $this->UploadDir->upload($this->data['Jogo']['link'], "files/games/jogos");  
+////                $uploader = new DropboxUploader("projetogameboard@gmail.com", "papupgame2015");
+////                $uploader->upload($this->data['Jogo']['link']['tmp_name'], $this->data['Jogo']['nome_amigavel'], $this->data['Jogo']['nome_amigavel']);
+//            } else {  
+//                unset($this->data['Jogo']['link']);  
+//            }
+//        }
+//        
+//        public function uploadGame() {
+//            if(!empty($this->data['Jogo']['img']['name'])) {
+//                $this->UploadDir = new UploadDir();
+//                $this->data['Jogo']['img'] = $this->UploadDir->upload($this->data['Jogo']['img'], "files/games/imgs");  
+//            } else {  
+//                unset($this->data['Jogo']['img']);  
+//            }
+//            
+//            if(!empty($this->data['Jogo']['link']['name'])) {
+//                $this->UploadDir = new UploadDir();
+//                $this->data['Jogo']['link'] = $this->UploadDir->upload($this->data['Jogo']['link'], "files/games/jogos");  
+////                $uploader = new DropboxUploader("projetogameboard@gmail.com", "papupgame2015");
+////                $uploader->upload($this->data['Jogo']['link']['tmp_name'], $this->data['Jogo']['nome_amigavel'], $this->data['Jogo']['nome_amigavel']);
+//            } else {  
+//                unset($this->data['Jogo']['link']);  
+//            }
+//        }
 
 }

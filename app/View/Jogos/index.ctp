@@ -3,10 +3,28 @@
         <div class="lateral-div">
             <h3>Pesquisar por gênero</h3>
             
+            <p><?php 
+                $ativo=array();
+                    if(empty($nome_amigavel))
+                    {
+                        $ativo=["class"=>"borda-link"];
+                    }
+            
+            echo $this->Html->link("Todos", array("controller"=>"jogos"),$ativo); ?></p>
+            
             <?php 
                 foreach ($generos as $genero):
+                    $ativo=array();
+                    if($genero["Genero"]["nome_amigavel"]==$nome_amigavel)
+                    {
+                        $ativo=["class"=>"borda-link"];
+                    }
             ?>
-            <p><?php echo $this->Html->link($genero["Genero"]["nome_genero"], array("controller"=>"generos","action"=>"view",$genero["Genero"]["id"])); ?></p>
+            <p>
+                <?php 
+                    echo $this->Html->link($genero["Genero"]["nome_genero"], array("controller"=>"jogos","action"=>"generos",$genero["Genero"]["nome_amigavel"]),$ativo); 
+                ?>
+            </p>
             <?php
                 endforeach;
             ?>
@@ -34,11 +52,30 @@
                     </div>
                 </div>
             </div>
-        ',array("controller"=>"jogos","action"=>"view",$jogo["Jogo"]["nome_amigavel"]),array("escape"=>false,'class'=>'link-jogo')); ?>
+        ',array("controller"=>"jogos","action"=>"visualizar",$jogo["Jogo"]["nome_amigavel"]),array("escape"=>false,'class'=>'link-jogo')); ?>
         <?php endforeach; ?>
     </div>
 </div>
 
+<div class="row">
+    <div class="col-md-12">
+        <div class="text-center">
+            <ul class="pagination">
+                <?php
+                    echo $this->Paginator->numbers(array(
+                            'separator' => null,
+                            'modulus'=>5,
+                            'ellipsis'=>'...',
+                            'tag'=>'li',
+                            'currentTag'=>'a',
+                            'currentClass'=>'active'
+                            )
+                    );
+                ?>
+            </ul>
+        </div>
+    </div>
+</div>
 <?php echo $this->Html->scriptBlock(''
         . '$(document).ready(function(){'        
         .    '$(".link-jogo").hover(function(){'

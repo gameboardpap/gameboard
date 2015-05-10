@@ -22,7 +22,8 @@
                                 'jquery.bxslider',
                                 'comments',
                                 'bootstrap-lightbox.min',
-                                'cs-rows'
+                                'cs-rows',
+                                'dropzone',
                                 )); 
         echo $this->fetch('css');
     ?>
@@ -60,12 +61,12 @@
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Jogos <i class="fa fa-angle-down"></i></a>
                                         <ul class="dropdown-menu">
                                             <li>
-                                                <a href="#">Dropdown Menu 1</a>
+                                                <?php echo $this->Html->link('Todos os jogos', array('controller'=>'jogos','action'=>'/')); ?>
                                             </li>
                                             <li>
-                                                <a href="#">Dropdown Menu 2</a>
+                                                <?php echo $this->Html->link('Adicionar um novo jogo', array('controller'=>'novojogo','action'=>'/')); ?>
                                             </li>
-                                            <li>
+<!--                                            <li>
                                                 <a href="#">Dropdown Menu 3</a>
                                             </li>
                                             <li>
@@ -73,14 +74,14 @@
                                             </li>
                                             <li>
                                                 <a href="#">Dropdown Menu 5</a>
-                                            </li>
+                                            </li>-->
                                             <li class="divider"></li>
-                                            <li>
+<!--                                            <li>
                                                 <a href="#">Privacy Policy</a>
                                             </li>
                                             <li>
                                                 <a href="#">Terms of Use</a>
-                                            </li>
+                                            </li>-->
                                         </ul>
                                     </li>
                                       <li>
@@ -90,6 +91,48 @@
                                 </ul>
                                 <ul class="nav navbar-nav navbar-right">
                                     <?php if($logado){ ?>
+                                        <li class="dropdown">
+                                           <a href="#" class="dropdown-toggle" data-toggle="dropdown">Buscar <i class="fa fa-angle-down"></i></a>
+                                           <ul class="dropdown-menu" style="padding: 15px;min-width: 250px;">
+                                              <li>
+                                                 <div class="row">
+                                                    <div class="col-md-12"> 
+                                                        <legend>Buscar</legend>
+                                                        <?php 
+                                                            echo $this->Form->create('Busca',
+                                                                array(
+                                                                    'class'=> 'form',
+                                                                    'role' => 'form',
+                                                                    'inputDefaults' => array(
+                                                                        'before' => '<div class="form-group">',
+                                                                        'between' => '',
+                                                                        'after' => '</div>',
+                                                                        'class'=>'form-control'
+                                                                    ),
+                                                                    'action'=>'buscar'
+                                                                )
+                                                            ); 
+                                                        ?>
+                                                        <?php
+                                                            echo $this->Form->input('pesquisa', array(
+                                                                'Placeholder' => "Pesquisa",
+                                                                'label'=>array(
+                                                                    'class'=>'sr-only'
+                                                                )
+                                                            ));
+                                                        ?>
+                                                        <?php
+                                                            echo $this->Form->input('tipo', array(
+                                                                'options' => array('jogo'=>'Jogo','usuario'=>'Usuário','equipe'=>'Equipe'),
+                                                                'label'=>'Buscar um: ',
+                                                            ));
+                                                        ?>
+                                                        <?php echo $this->Form->end(array('label'=>'Pesquisar','class'=>'btn btn-default')); ?>
+                                                    </div>
+                                                 </div>
+                                              </li>
+                                           </ul>
+                                        </li>
                                         <li class="dropdown">
                                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Bem vindo, <?php echo $logado['username']; ?>  <i class="fa fa-angle-down"></i></a>
                                             <ul class="dropdown-menu">
@@ -104,8 +147,40 @@
                                         </li>                                            
                                     <?php } else { ?>
                                         <li>
+                                            <?php echo $this->Html->link('Cadastrar',array('controller'=>'','action'=>'Cadastrar')); ?>
+                                        </li>
+                                        <li>
                                             <?php echo $this->Html->link('Login',array('controller'=>'','action'=>'Login')); ?>
                                         </li>
+<!--                                        <li class="dropdown">
+                                           <a href="#" class="dropdown-toggle" data-toggle="dropdown">Login <i class="fa fa-angle-down"></i></a>
+                                           <ul class="dropdown-menu" style="padding: 15px;min-width: 250px;">
+                                              <li>
+                                                 <div class="row">
+                                                    <div class="col-md-12">-->
+                                                     
+                                                        
+<!--                                                       <form class="form" role="form" method="post" action="login" accept-charset="UTF-8" id="login-nav">
+                                                          <div class="form-group">
+                                                             <label class="sr-only" for="exampleInputEmail2">Email address</label>
+                                                             <input type="email" class="form-control" id="exampleInputEmail2" placeholder="Email address" required>
+                                                          </div>
+                                                          <div class="form-group">
+                                                             <label class="sr-only" for="exampleInputPassword2">Password</label>
+                                                             <input type="password" class="form-control" id="exampleInputPassword2" placeholder="Password" required>
+                                                          </div>
+                                                          <div class="checkbox">
+                                                             <label>
+                                                             <input type="checkbox"> Remember me
+                                                             </label>
+                                                          </div>
+                                                          <div class="form-group">
+                                                             <button type="submit" class="btn btn-success btn-block">Sign in</button>
+                                                          </div>
+                                                       </form>-->
+<!--                                                    </div>
+                                                 </div>
+                                              </li>-->
                                     <?php } ?>                                    
                                 </ul>
                             </div>
@@ -144,7 +219,8 @@
                                 'scrolling-nav',
                                 'modernizr',
                                 'jquery.bxslider.min',
-                                'bootstrap-lightbox.min'
+                                'bootstrap-lightbox.min',
+                                'dropzone',
                                 )
                                 );
         echo $this->fetch('script');

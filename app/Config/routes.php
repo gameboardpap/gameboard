@@ -25,10 +25,18 @@
  * to use (in this case, /app/View/Pages/home.ctp)...
  */
         Router::connect('/Cadastrar', array('controller' => 'Usuarios', 'action' => 'add'));
+        Router::connect('/NovoJogo', array('controller' => 'Jogos', 'action' => 'add'));
+        Router::connect('/novojogo', array('controller' => 'Jogos', 'action' => 'add'));
         Router::connect('/Sair', array('controller' => 'Usuarios', 'action' => 'logout'));
         Router::connect('/Login', array('controller' => 'Usuarios', 'action' => 'login'));
-        Router::connect('/jogos/:nome_amigavel', array('controller' => 'Jogos', 'action' => 'view'),    array('pass' => array('nome_amigavel')));
+        Router::connect('/jogos/visualizar/:nome_amigavel', array('controller' => 'Jogos', 'action' => 'view'),    array('pass' => array('nome_amigavel')));
+        Router::connect('/jogos/generos/:genero', array('controller' => 'Jogos', 'action' => 'index'),    array('pass' => array('genero')));
         Router::connect('/', array('controller' => 'Home', 'action' => 'inicio'));
+        
+        //buscas
+        Router::connect('/jogos/buscar/:busca', array('controller' => 'Jogos', 'action' => 'index'),    array('pass' => array('')));;
+        
+        
 /**
  * ...and connect the rest of 'Pages' controller's URLs.
  */

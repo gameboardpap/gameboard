@@ -5,8 +5,8 @@
             <?php if(empty($comentario['Usuario']['avatar'])): ?>
                 <img class="img-responsive" src="http://www.keita-gaming.com/assets/profile/default-avatar-c5d8ec086224cb6fc4e395f4ba3018c2.jpg" />
             <?php else: ?>
-                <?php echo $this->Html->image('/app/webroot//files/usuario_avatar/'.$comentario['Usuario']['avatar']); ?>
-                <!--<img class="img-responsive" src="http://www.keita-gaming.com/assets/profile/default-avatar-c5d8ec086224cb6fc4e395f4ba3018c2.jpg" />-->
+                <?php // echo $this->Html->image('/app/webroot//files/usuario_avatar/'.$comentario['Usuario']['avatar']); ?>
+                <img class="img-responsive" src="http://www.keita-gaming.com/assets/profile/default-avatar-c5d8ec086224cb6fc4e395f4ba3018c2.jpg" />
             <?php endif; ?>
             <div class="member-name">
                 <?php echo $comentario['Usuario']['username']; ?>

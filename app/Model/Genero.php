@@ -49,5 +49,17 @@ class Genero extends AppModel {
 			'finderQuery' => '',
 		)
 	);
+        
+        public function getIdByAmigavel($nome_amigavel){
+            $genero = $this->find('first',array('conditions'=>array('Genero.nome_amigavel'=>$nome_amigavel)));
+            return $genero['Genero']['id'];
+        }
+        
+        public function beforeSave($options = array())
+        {
+            if(isset($this->data['Genero']['nome_genero'])) {
+                $this->data['Genero']['nome_amigavel']=  strtolower(Inflector::slug($this->data['Genero']['nome_genero']));
+            }
+        }
 
 }

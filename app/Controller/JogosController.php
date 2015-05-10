@@ -20,10 +20,13 @@ class JogosController extends AppController {
  *
  * @return void
  */
-	public function index() {
-		$this->Jogo->recursive = 1;
-		$this->set('jogos', $this->Paginator->paginate());
-                $this->set('generos', $this->Jogo->Genero->find('all'));
+	public function index($nome_amigavel=null, $busca=null) {
+//            debug($busca);
+//            die;
+            $this->Paginator->settings = $this->Jogo->getJogos($nome_amigavel, $busca);
+            $generos=$this->Jogo->Genero->find('all');
+            $dados=array('jogos'=>$this->Paginator->paginate(),'generos'=>$generos,'nome_amigavel'=>$nome_amigavel);
+            $this->set($dados);
 	}
 
 /**
@@ -34,9 +37,9 @@ class JogosController extends AppController {
  * @return void
  */
 	public function view($nome_amigavel = null) {
-//		if (!$this->Jogo->exists($nome_amigavel)) {
-//			throw new NotFoundException(__('Invalid jogo'));
-//		}
+		if (!$this->Jogo->hasAny(array('Jogo.nome_amigavel'=>$nome_amigavel))) {
+			throw new NotFoundException(__('Jogo inválido'));
+		}
                 $this->Jogo->recursive = 2;
 		$options = array('conditions' => array('Jogo.nome_amigavel' => $nome_amigavel));
 		$this->set('jogo', $this->Jogo->find('first', $options));
@@ -52,10 +55,10 @@ class JogosController extends AppController {
 		if ($this->request->is('post')) {
 			$this->Jogo->create();
 			if ($this->Jogo->save($this->request->data)) {
-				$this->Session->setFlash(__('The jogo has been saved.'));
+				$this->Session->setFlash(__('Jogo salvo com sucesso!'));
 				return $this->redirect(array('action' => 'index'));
 			} else {
-				$this->Session->setFlash(__('The jogo could not be saved. Please, try again.'));
+				$this->Session->setFlash(__('O jogo não pode ser salvo, tente novamente mais tarde!'));
 			}
 		}
                
@@ -72,15 +75,15 @@ class JogosController extends AppController {
  * @return void
  */
 	public function edit($nome_amigavel = null) {
-//		if (!$this->Jogo->exists($nome_amigavel)) {
-//			throw new NotFoundException(__('Invalid jogo'));
-//		}
+		if (!$this->Jogo->hasAny(array('Jogo.nome_amigavel'=>$nome_amigavel))) {
+			throw new NotFoundException(__('Jogo inválido'));
+		}
 		if ($this->request->is(array('post', 'put'))) {
 			if ($this->Jogo->save($this->request->data)) {
-				$this->Session->setFlash(__('The jogo has been saved.'));
+				$this->Session->setFlash(__('Jogo alterado com sucesso!'));
 				return $this->redirect(array('action' => 'index'));
 			} else {
-				$this->Session->setFlash(__('The jogo could not be saved. Please, try again.'));
+				$this->Session->setFlash(__('O jogo não pode ser alterado, tente novamente mais tarde!'));
 			}
 		} else {
 			$options = array('conditions' => array('Jogo.nome_amigavel' => $nome_amigavel));
@@ -101,20 +104,19 @@ class JogosController extends AppController {
 	public function delete($id = null) {
 		$this->Jogo->id = $id;
 		if (!$this->Jogo->exists()) {
-			throw new NotFoundException(__('Invalid jogo'));
+			throw new NotFoundException(__('Jogo inválido'));
 		}
 		$this->request->allowMethod('post', 'delete');
 		if ($this->Jogo->delete()) {
-			$this->Session->setFlash(__('The jogo has been deleted.'));
+			$this->Session->setFlash(__('Jogo deletado com sucesso!'));
 		} else {
-			$this->Session->setFlash(__('The jogo could not be deleted. Please, try again.'));
+			$this->Session->setFlash(__('O jogo não pode ser deletado, tente novamente mais tarde!'));
 		}
 		return $this->redirect(array('action' => 'index'));
 	}
         
         public function download($id) {
             $resposta=$this->Jogo->beforeDownload($this->Auth->user(),$id);
-            
             if($resposta) {            
                 $path = "webroot".DS."files".DS."games".DS."jogos".DS.$resposta.DS;
 
@@ -125,7 +127,13 @@ class JogosController extends AppController {
                 return $this->response;
             } else 
             {
+                echo 'Você possui 5 jogos que baixou e não deu feedback! Dê feedback nestes jogos para continuar baixando!';
+                exit;
                 $this->Session->setFlash('Você possui 5 jogos que baixou e não deu feedback! Dê feedback nestes jogos para continuar baixando!');
             }
+        }
+        
+        public function busca($busca) {
+            $this->redirect(array("controller"=>"jogos","action"=>"buscar",$busca));
         }
 }

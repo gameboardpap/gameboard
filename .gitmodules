@@ -1,0 +1,3 @@
+[submodule "app/Plugin/FileStorage"]
+	path = app/Plugin/FileStorage
+	url = git://github.com/burzum/cakephp-file-storage.git

@@ -170,3 +170,12 @@ a:hover {
 .fundo-verde {
     background-color:#aec62c;
 }
+
+#preloader {
+   display:none;
+}
+
+.borda-link {
+    border-bottom: 1px solid #666666;
+    border-bottom-left-radius: 4px;
+}

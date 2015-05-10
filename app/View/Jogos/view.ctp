@@ -39,7 +39,7 @@
                 <p><strong>Faixa Etária: </strong><?php echo h($jogo['Jogo']['faixa_etaria']); ?></p>
                 <p><strong>Gêneros: </strong>
                     <?php foreach ($jogo['Genero'] as $genero): ?>
-                        <?php echo $this->Html->link('<span class="label label-info">'.$genero['nome_genero'].'</span>', array('controller' => 'generos', 'action' => 'view', $genero['id']), array('escape'=>false)); ?>
+                        <?php echo $this->Html->link('<span class="label label-info">'.$genero['nome_genero'].'</span>', array('controller' => 'jogos', 'action' => 'generos', $genero['nome_amigavel']), array('escape'=>false)); ?>
                     <?php endforeach; ?>
                 </p>
             </div>
@@ -109,16 +109,9 @@
 <?php echo $this->Html->scriptBlock('
         
         $(document).ready(function(){
-                 var dados = {"id": "'.$jogo["Jogo"]["id"].'"};
-                $.ajax({
-                    "url":"'.$this->Html->url(array("controller"=>"comentarios","action"=>"")).'",
-                    "type":"POST",
-                    "data":dados,
-                    "success":function(data) {
-                        $(".comments").html(data);
-                    }
-                });
                 
+                carregarComentarios();
+
                 $(".comments").on("click",".paginacao-comments",function(){
                     var url = $(this).attr("href");
                     var dados = {"id": "'.$jogo["Jogo"]["id"].'"};
@@ -151,5 +144,18 @@
                 });            
         });
         
+        function carregarComentarios() {
+                var dados = {"id": "'.$jogo["Jogo"]["id"].'"};
+                $.ajax({
+                    "url":"'.$this->Html->url(array("controller"=>"comentarios","action"=>"")).'",
+                    "type":"POST",
+                    "data":dados,
+                    "success":function(data) {
+                        $(".comments").html(data);
+                    }
+                });
+        }
+
+
         ',array("inline"=>false)); 
 ?>
