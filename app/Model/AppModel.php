@@ -30,4 +30,18 @@ App::uses('Model', 'Model');
  * @package       app.Model
  */
 class AppModel extends Model {
+    
+    public $actsAs = array('Containable');
+    
+    function getUsuarioLogado() {
+        
+      App::uses('CakeSession', 'Model/Datasource');
+      $Session = new CakeSession();
+
+
+      $user = $Session->read('Auth.User');
+
+      return $user;
+    }
+    
 }

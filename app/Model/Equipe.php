@@ -35,6 +35,7 @@ class Equipe extends AppModel {
  *
  * @var array
  */
+                
 	public $hasAndBelongsToMany = array(
 		'Usuario' => array(
 			'className' => 'Usuario',
@@ -53,12 +54,39 @@ class Equipe extends AppModel {
         
         public function beforeSave($options = array())  
         {  
+            $this->data['Equipe']['nome_amigavel']=  strtolower(Inflector::slug($this->data['Equipe']['nome_equipe']));
             if(!empty($this->data['Equipe']['logo']['name'])) {
                 $this->UploadDir = new UploadDir();
                 $this->data['Equipe']['logo'] = $this->UploadDir->upload($this->data['Equipe']['logo'], "files/equipe_logo");  
             } else {  
                 unset($this->data['Equipe']['logo']);  
             }  
+        }
+        
+        public function getEquipes($type,$conditions) {
+            $this->bindModel(
+                array(
+                  'hasOne' => array(
+                    'EquipesUsuario' => array(
+                      'className'  => 'EquipesUsuario',
+                      'foreignKey' => 'equipe_id',
+                      'fields'     => ''	
+                    ),
+                    'Usuario' => array(
+                      'className'  => 'Usuario',
+                      'foreignKey' => false,
+                      'conditions' => 'Usuario.id = EquipesUsuario.usuario_id',
+                      'fields'	 => ''
+                    ),
+                  )
+                )
+            );            
+            
+            $this->recursive = 1;
+            
+            $equipes = $this->find($type,array('contain'=>array('Usuario','EquipesUsuario'),'conditions'=>$conditions));
+            
+            return $equipes;
         }
 
 }

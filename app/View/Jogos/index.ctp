@@ -5,7 +5,7 @@
             
             <p><?php 
                 $ativo=array();
-                    if(empty($nome_amigavel))
+                    if(empty($genero_amigavel))
                     {
                         $ativo=["class"=>"borda-link"];
                     }
@@ -15,7 +15,7 @@
             <?php 
                 foreach ($generos as $genero):
                     $ativo=array();
-                    if($genero["Genero"]["nome_amigavel"]==$nome_amigavel)
+                    if($genero["Genero"]["nome_amigavel"]==$genero_amigavel)
                     {
                         $ativo=["class"=>"borda-link"];
                     }
@@ -31,6 +31,7 @@
         </div>
     </div>
     <div class="col-md-9">
+        <?php if($busca) { ?> <h4>Termo pesquisado: <b><?php echo $busca; ?></b></h4> <?php } ?>
         <?php foreach ($jogos as $jogo): ?>
             <?php echo $this->Html->link('
             <div class="row">

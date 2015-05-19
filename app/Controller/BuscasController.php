@@ -9,9 +9,10 @@ class BuscasController extends AppController {
  * @return void
  */
 	public function buscar() {
-            $busca=$this->Busca->definirBusca($this->request->data);
             
-           $this->redirect(array('controller'=>'Jogos','action'=>'busca',$busca['busca']));
+            $busca=$this->Busca->buscar($this->request->data);
+            
+//            $this->set($busca);
             
 	}
 }

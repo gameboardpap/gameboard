@@ -69,4 +69,33 @@ class Download extends AppModel {
 			'order' => ''
 		)
 	);
+        
+        public function getDownloads($type,$conditions) {
+            
+            $downloads=$this->find($type,array('conditions'=>$conditions));
+            
+            return $downloads;
+            
+        }   
+        
+        public function paginateDownloads() {
+            $usuarioLogado=$this->getUsuarioLogado();
+            $conditions=array('Download.usuario_id'=>$usuarioLogado['id']);
+            return $this->getPaginateOptions($conditions);
+        }
+        
+        public function getPaginateOptions($conditions="") {                        
+
+            $this->recursive = 2;
+
+            $paginate = array(
+                'conditions'=>array($conditions),
+                'limit' => 10,
+                 'order' => array(
+                     'Download.feedback ASC','Download.created DESC'
+                 )
+            );
+
+            return $paginate;   
+        }
 }

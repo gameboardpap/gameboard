@@ -24,6 +24,7 @@
                                 'bootstrap-lightbox.min',
                                 'cs-rows',
                                 'dropzone',
+                                'pnotify.custom.min',
                                 )); 
         echo $this->fetch('css');
     ?>
@@ -47,92 +48,105 @@
                                     <span class="icon-bar"></span>
                                     <span class="icon-bar"></span>
                                 </button>
-                                <?php echo $this->Html->link('Inicio', array('controller'=>' ','action'=>'/'),array('class'=>'navbar-brand')); ?>
+                                <?php echo $this->Html->link($this->Html->image('logos/logo-nav30.png',array('class'=>'logo-nav')), array('controller'=>' ','action'=>'/'),array('class'=>'navbar-brand','escape'=>false)); ?>
                             </div>
                             <div class="collapse navbar-collapse">
                                 <ul class="nav navbar-nav">
-                                    <li class="active">
-                                        <?php echo $this->Html->link('Inicio', array('controller'=>'','action'=>'/')); ?>
-                                    </li>
-                                    <li>
-                                        <a href="about-us.html">Sobre</a>
-                                    </li>
                                     <li class="dropdown">
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Jogos <i class="fa fa-angle-down"></i></a>
                                         <ul class="dropdown-menu">
                                             <li>
                                                 <?php echo $this->Html->link('Todos os jogos', array('controller'=>'jogos','action'=>'/')); ?>
                                             </li>
+                                            <li><a>Buscar por gênero:</a></li>
+                                            <li class="divider"></li>
                                             <li>
                                                 <?php echo $this->Html->link('Adicionar um novo jogo', array('controller'=>'novojogo','action'=>'/')); ?>
                                             </li>
-<!--                                            <li>
-                                                <a href="#">Dropdown Menu 3</a>
-                                            </li>
                                             <li>
-                                                <a href="#">Dropdown Menu 4</a>
+                                                <?php echo $this->Html->link('Editar um jogo meu', array('controller'=>'editarmeusjogos','action'=>'')); ?>
                                             </li>
-                                            <li>
-                                                <a href="#">Dropdown Menu 5</a>
-                                            </li>-->
                                             <li class="divider"></li>
-<!--                                            <li>
-                                                <a href="#">Privacy Policy</a>
-                                            </li>
                                             <li>
-                                                <a href="#">Terms of Use</a>
-                                            </li>-->
+                                                <?php echo $this->Html->link('Meus Downloads', array('controller'=>'meusdownloads','action'=>'/')); ?>
+                                            </li>                                            
                                         </ul>
                                     </li>
-                                      <li>
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Desenvolvedoras <i class="fa fa-angle-down"></i></a>
+                                        <ul class="dropdown-menu">
+                                            <li>
+                                                <?php echo $this->Html->link('Todos as desenvolvedoras', array('controller'=>'equipes','action'=>'/')); ?>
+                                            </li>
+                                            <li class="divider"></li>
+                                            <li>
+                                                <?php echo $this->Html->link('Adicionar uma nova desenvolvedora', array('controller'=>'novaequipe','action'=>'/')); ?>
+                                            </li>                                            
+                                            <li>
+                                                <?php echo $this->Html->link('Editar uma desenvolvedora minha', array('controller'=>'editarminhaequipe','action'=>'')); ?>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <?php echo $this->Html->link('Relatórios', array('controller'=>'Relatorios','action'=>'/')); ?>
+                                    </li>                                    
+                                    <li>
                                         <a href="contact-us.html">Contato</a>
-                                        
                                     </li>
                                 </ul>
                                 <ul class="nav navbar-nav navbar-right">
-                                    <?php if($logado){ ?>
-                                        <li class="dropdown">
-                                           <a href="#" class="dropdown-toggle" data-toggle="dropdown">Buscar <i class="fa fa-angle-down"></i></a>
-                                           <ul class="dropdown-menu" style="padding: 15px;min-width: 250px;">
-                                              <li>
-                                                 <div class="row">
-                                                    <div class="col-md-12"> 
-                                                        <legend>Buscar</legend>
+                                    <?php if($logado) { ?>
+                                    <?php if(
+                                               strtolower($this->params['controller'])=="jogos"
+                                            || strtolower($this->params['controller'])=="usuarios"
+                                            || strtolower($this->params['controller'])=="equipes"
+                                            ) { 
+                                    ?>
+                                        <!--<li class="dropdown">-->
+                                           <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown">Buscar <i class="fa fa-angle-down"></i></a>-->
+                                           <!--<ul class="dropdown-menu" style="padding: 15px;min-width: 250px;">-->
+                                              <!--<li>-->
+                                                 <!--<div class="row">-->
+                                                    <!--<div class="col-md-12">--> 
+                                                        <!--<legend>Buscar</legend>-->
                                                         <?php 
-                                                            echo $this->Form->create('Busca',
+                                                            echo $this->Form->create('',
                                                                 array(
-                                                                    'class'=> 'form',
-                                                                    'role' => 'form',
+                                                                    'class'=> 'navbar-form navbar-left',
+                                                                    'role' => 'search',
+                                                                    'div'=>false,
                                                                     'inputDefaults' => array(
                                                                         'before' => '<div class="form-group">',
                                                                         'between' => '',
                                                                         'after' => '</div>',
-                                                                        'class'=>'form-control'
+                                                                        'class'=>'form-control',
+                                                                        'div'=>false,
+                                                                        'label'=>false
                                                                     ),
-                                                                    'action'=>'buscar'
+                                                                    'action'=>'index'
                                                                 )
                                                             ); 
                                                         ?>
                                                         <?php
                                                             echo $this->Form->input('pesquisa', array(
-                                                                'Placeholder' => "Pesquisa",
-                                                                'label'=>array(
-                                                                    'class'=>'sr-only'
+                                                                'Placeholder' => "Buscar"
                                                                 )
-                                                            ));
+                                                            );
                                                         ?>
-                                                        <?php
-                                                            echo $this->Form->input('tipo', array(
-                                                                'options' => array('jogo'=>'Jogo','usuario'=>'Usuário','equipe'=>'Equipe'),
-                                                                'label'=>'Buscar um: ',
-                                                            ));
-                                                        ?>
-                                                        <?php echo $this->Form->end(array('label'=>'Pesquisar','class'=>'btn btn-default')); ?>
-                                                    </div>
-                                                 </div>
-                                              </li>
-                                           </ul>
-                                        </li>
+                                                        <?php echo $this->Form->button('<i class="fa fa-search"></i>',array('class'=>'btn btn-default','div'=>false)); ?>
+                                                        <?php echo $this->Form->end(); ?>
+                                                    <!--</div>-->
+                                                 <!--</div>-->
+                                              <!--</li>-->
+                                           <!--</ul>-->
+                                        <!--</li>-->
+<!--                                              <form class="navbar-form navbar-left" role="search">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Search">
+        </div>
+        <button type="submit" class="btn btn-default">Submit</button>
+      </form>-->
+                                    <?php } ?>
                                         <li class="dropdown">
                                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Bem vindo, <?php echo $logado['username']; ?>  <i class="fa fa-angle-down"></i></a>
                                             <ul class="dropdown-menu">
@@ -188,6 +202,8 @@
                     </header>
                 </div>
 		<div id="content">
+                    <?php // if(!$this->params['controller']=="home") { ?>
+                    
                     <div class="section section-breadcrumbs">
                         <div class="container">
                             <h1><?php echo $this->fetch('title'); ?></h1>
@@ -221,9 +237,39 @@
                                 'jquery.bxslider.min',
                                 'bootstrap-lightbox.min',
                                 'dropzone',
+                                'pnotify.custom.min',
                                 )
                                 );
         echo $this->fetch('script');
+        
+    ?>
+    <?php 
+        if($this->Session->check('Message.sucesso')) {
+            $mensagem=$this->Session->flash('sucesso');
+            $titulo="Tudo certo!";
+            $type="success";
+        } else if($this->Session->check('Message.erro')) {
+            $mensagem=$this->Session->flash('erro');
+            $titulo="Try Again...";
+            $type="error";
+        } else if($this->Session->check('Message.aviso')) {
+            $mensagem=$this->Session->flash('aviso');
+            $titulo="Stop! Wait a minute!";
+            $type="";
+        } else {
+            $mensagem=NULL;
+        }
+    ?>
+    <?php
+        if($mensagem) {
+            echo $this->Html->scriptBlock(
+                "   new PNotify({
+                    title: '".$titulo."',
+                    text: '".$mensagem."',
+                    type: '".$type."'
+                });"
+            );
+        }
     ?>
 </body>
 </html>

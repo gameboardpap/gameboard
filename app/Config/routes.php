@@ -27,14 +27,15 @@
         Router::connect('/Cadastrar', array('controller' => 'Usuarios', 'action' => 'add'));
         Router::connect('/NovoJogo', array('controller' => 'Jogos', 'action' => 'add'));
         Router::connect('/novojogo', array('controller' => 'Jogos', 'action' => 'add'));
+        Router::connect('/NovaEquipe', array('controller' => 'Equipes', 'action' => 'add'));
+        Router::connect('/novaequipe', array('controller' => 'Equipes', 'action' => 'add'));
+        Router::connect('/editarmeusjogos', array('controller' => 'Jogos', 'action' => 'editMeus'));
+        Router::connect('/meusdownloads', array('controller' => 'Downloads', 'action' => 'index'));
         Router::connect('/Sair', array('controller' => 'Usuarios', 'action' => 'logout'));
         Router::connect('/Login', array('controller' => 'Usuarios', 'action' => 'login'));
         Router::connect('/jogos/visualizar/:nome_amigavel', array('controller' => 'Jogos', 'action' => 'view'),    array('pass' => array('nome_amigavel')));
         Router::connect('/jogos/generos/:genero', array('controller' => 'Jogos', 'action' => 'index'),    array('pass' => array('genero')));
         Router::connect('/', array('controller' => 'Home', 'action' => 'inicio'));
-        
-        //buscas
-        Router::connect('/jogos/buscar/:busca', array('controller' => 'Jogos', 'action' => 'index'),    array('pass' => array('')));;
         
         
 /**

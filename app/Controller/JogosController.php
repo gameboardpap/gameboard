@@ -20,12 +20,17 @@ class JogosController extends AppController {
  *
  * @return void
  */
-	public function index($nome_amigavel=null, $busca=null) {
-//            debug($busca);
-//            die;
-            $this->Paginator->settings = $this->Jogo->getJogos($nome_amigavel, $busca);
+	public function index($genero_amigavel=null) {
+            $options['genero_amigavel']=$genero_amigavel;
+            $busca=NULL;
+            
+            if($this->request->data) {
+                $options['post']=$this->request->data;
+                $busca=$this->request->data['Jogo']['pesquisa'];
+            }
+            $this->Paginator->settings = $this->Jogo->paginateJogos($options);
             $generos=$this->Jogo->Genero->find('all');
-            $dados=array('jogos'=>$this->Paginator->paginate(),'generos'=>$generos,'nome_amigavel'=>$nome_amigavel);
+            $dados=array('jogos'=>$this->Paginator->paginate(),'generos'=>$generos,'genero_amigavel'=>$genero_amigavel,'busca'=>$busca);
             $this->set($dados);
 	}
 
@@ -62,7 +67,7 @@ class JogosController extends AppController {
 			}
 		}
                
-		$equipes = $this->Jogo->Equipe->find('list');
+		$equipes = $this->Jogo->listarEquipes();
 		$generos = $this->Jogo->Genero->find('list');
 		$this->set(compact('equipes', 'generos'));
 	}
@@ -116,7 +121,7 @@ class JogosController extends AppController {
 	}
         
         public function download($id) {
-            $resposta=$this->Jogo->beforeDownload($this->Auth->user(),$id);
+            $resposta=$this->Jogo->beforeDownload($id);
             if($resposta) {            
                 $path = "webroot".DS."files".DS."games".DS."jogos".DS.$resposta.DS;
 
@@ -131,9 +136,5 @@ class JogosController extends AppController {
                 exit;
                 $this->Session->setFlash('Você possui 5 jogos que baixou e não deu feedback! Dê feedback nestes jogos para continuar baixando!');
             }
-        }
-        
-        public function busca($busca) {
-            $this->redirect(array("controller"=>"jogos","action"=>"buscar",$busca));
         }
 }

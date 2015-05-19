@@ -1,5 +1,7 @@
 <?php $this->assign('title', 'Adicionar novo jogo'); ?>
 
+<?php if(!empty($equipes)) { ?>
+
 <div class="section">
     <div class="container">
         <div class="row">
@@ -81,3 +83,7 @@
         });
     });
 </script>
+
+<?php } else { ?>
+    <p>Você não possui nenhuma equipe para adicionar um jogo! Crie uma equipe ou solicite a algum usuário membro de uma equipe desejada para te adicionar nela!</p>
+<?php    } ?>

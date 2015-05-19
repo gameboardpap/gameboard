@@ -15,8 +15,7 @@ class UsuariosController extends AppController {
  */
 	public $components = array('Paginator');
 
-        
-        
+       
 /**
  * 
  * 
@@ -59,18 +58,17 @@ class UsuariosController extends AppController {
  */
 	public function login() {
 		if ($this->request->is('post')) {
-//                    var_dump($this->request->data);
-//                    die;
                     if($this->Auth->login()) {
-                        $this->Session->setFlash('Bem vindo!');
+                        $this->Session->setFlash('Bem vindo!', 'flash_custom', array(),'sucesso');
                         return $this->redirect($this->Auth->redirect());
                     } else {
-                        $this->Session->setFlash("Usuário e/ou senha incorretos!");
+                        $this->Session->setFlash("Usuário e/ou senha incorretos!", 'flash_custom', array(),'erro');
                     }
 		}
 	}
         
         public function logout() {
+            $this->Session->setFlash('Comeback Home!', 'flash_custom', array(),'sucesso');
             $this->redirect($this->Auth->logout());
         }       
 

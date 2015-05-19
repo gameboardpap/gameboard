@@ -85,6 +85,8 @@ class Usuario extends AppModel {
             
             $this->data['Usuario']['password']=  $passwordHasher->hash($this->data['Usuario']['password']);
             
+            $this->data['Usuario']['nome_amigavel']=  strtolower(Inflector::slug($this->data['Usuario']['username']));
+            
             if(!empty($this->data['Usuario']['avatar']['name'])) {
                 $this->UploadDir = new UploadDir();
                 $this->data['Usuario']['avatar'] = $this->UploadDir->upload($this->data['Usuario']['avatar'], "files/usuario_avatar");  

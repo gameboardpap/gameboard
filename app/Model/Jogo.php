@@ -1,6 +1,8 @@
 <?php
 App::uses('AppModel', 'Model');
 App::uses('UploadDir', 'Model');
+//App::uses('DropboxUploader', 'Model');
+App::uses('Busca','Model');
 /**
  * Jogo Model
  *
@@ -118,23 +120,28 @@ class Jogo extends AppModel {
 		)
 	);
         
-        public $actsAs = array('Containable');
         
         public function beforeSave($options = array())
         {
             if(isset($this->data['Jogo']['nome'])) {
                 $this->data['Jogo']['nome_amigavel']=  strtolower(Inflector::slug($this->data['Jogo']['nome']));
             }
+            $this->data=$this->uploadGame($this->data);
         }
         
-        public function beforeDownload($user,$id)
+        public function beforeDownload($id)
         {
-            $feedback = $this->Download->find('first', array('conditions' => array('Download.usuario_id' => $user['id'],'Download.jogo_id'=>$id)));
-            $jogo = $this->find('first',array('conditions'=>array('Jogo.id'=>$id)));
+            $user=$this->getUsuarioLogado();
+            
+            $conditionsFeedback=array('Download.usuario_id' => $user['id'],'Download.jogo_id'=>$id);
+            
+            $feedback = $this->Download->getDownloads('first', $conditionsFeedback);
+                        
+            $jogo = $this->getJogos('first',array('Jogo.id'=>$id));
             
             if(empty($feedback))
             {
-                $count=$this->Download->find('count', array('conditions' => array('Download.usuario_id' => $user['id'],'Download.feedback'=>false)));
+                $count=$this->Download->getDownloads('count',array('Download.usuario_id' => $user['id'],'Download.feedback'=>false));
                 
                 if($count<=5)
                 {
@@ -155,21 +162,34 @@ class Jogo extends AppModel {
             return $jogo['Jogo']['link'];
         }
         
-        public function getJogos($genero_amigavel=null,$busca=null){
+        public function paginateJogos($options = array()) {
+            
+            $conditions="";
+            if(isset($options['genero_amigavel'])) {
+                
+                $genero_amigavel=$options['genero_amigavel'];
+
+                $this->bindModel(array('hasOne' => array('GenerosJogo')), false);
+
+                $genero_id=$this->Genero->getIdByAmigavel($genero_amigavel);
+
+                $conditions=array('GenerosJogo.genero_id'=>$genero_id);                   
+
+            }
+            
+            if(isset($options['post']['Jogo']['pesquisa']))
+            {
+                $texto=$options['post']['Jogo']['pesquisa'];
+                $model='Jogo';
+                $busca = new Busca();
+                $conditions=$busca->formatarBuscaNome($texto, $model, $conditions);                
+            }
+            return $this->getPaginateOptions($conditions);
+        }
+        
+        public function getPaginateOptions($conditions="") {
                         
 		$this->recursive = 1;
-                
-                $conditions="";
-                
-                if($genero_amigavel) {
-                    
-                    $this->bindModel(array('hasOne' => array('GenerosJogo')), false);
-                    
-                    $genero_id=$this->Genero->getIdByAmigavel($genero_amigavel);
-                    
-                    $conditions=array('GenerosJogo.genero_id'=>$genero_id);                   
-                   
-                }
                 
                 $paginate = array(
                     'contains'=>array('Genero','GenerosJogo','Equipe'),
@@ -183,66 +203,39 @@ class Jogo extends AppModel {
             return $paginate;
         }
         
-        public function formatarBusca($busca=null) {
+        public function getJogos($type,$conditions) {
+            $jogos = $this->find($type,array('conditions'=>$conditions));
             
-            $busca=array('Jogo.nome_amigavel LIKE '=> "%".strtolower(Inflector::slug($busca))."%");
-            
-            return $busca;
+            return $jogos;
         }
         
+        public function listarEquipes() {
+            
+            $user=$this->getUsuarioLogado();
+            $conditions=array('Usuario.id'=>$user['id']);
+            $equipes = $this->Equipe->getEquipes('list', $conditions);
+            
+            return $equipes;
+        }
         
-//        public function uploadImage() {
-//            if(!empty($this->data['Jogo']['img']['name'])) {
-//                $this->UploadDir = new UploadDir();
-//                $this->data['Jogo']['img'] = $this->UploadDir->upload($this->data['Jogo']['img'], "files/games/imgs");  
-//            } else {  
-//                unset($this->data['Jogo']['img']);  
-//            }
-//            
-//            if(!empty($this->data['Jogo']['link']['name'])) {
-//                $this->UploadDir = new UploadDir();
-//                $this->data['Jogo']['link'] = $this->UploadDir->upload($this->data['Jogo']['link'], "files/games/jogos");  
-////                $uploader = new DropboxUploader("projetogameboard@gmail.com", "papupgame2015");
-////                $uploader->upload($this->data['Jogo']['link']['tmp_name'], $this->data['Jogo']['nome_amigavel'], $this->data['Jogo']['nome_amigavel']);
-//            } else {  
-//                unset($this->data['Jogo']['link']);  
-//            }
-//        }
-//        
-//        public function uploadMedia() {
-//            if(!empty($this->data['Jogo']['img']['name'])) {
-//                $this->UploadDir = new UploadDir();
-//                $this->data['Jogo']['img'] = $this->UploadDir->upload($this->data['Jogo']['img'], "files/games/imgs");  
-//            } else {  
-//                unset($this->data['Jogo']['img']);  
-//            }
-//            
-//            if(!empty($this->data['Jogo']['link']['name'])) {
-//                $this->UploadDir = new UploadDir();
-//                $this->data['Jogo']['link'] = $this->UploadDir->upload($this->data['Jogo']['link'], "files/games/jogos");  
-////                $uploader = new DropboxUploader("projetogameboard@gmail.com", "papupgame2015");
-////                $uploader->upload($this->data['Jogo']['link']['tmp_name'], $this->data['Jogo']['nome_amigavel'], $this->data['Jogo']['nome_amigavel']);
-//            } else {  
-//                unset($this->data['Jogo']['link']);  
-//            }
-//        }
-//        
-//        public function uploadGame() {
-//            if(!empty($this->data['Jogo']['img']['name'])) {
-//                $this->UploadDir = new UploadDir();
-//                $this->data['Jogo']['img'] = $this->UploadDir->upload($this->data['Jogo']['img'], "files/games/imgs");  
-//            } else {  
-//                unset($this->data['Jogo']['img']);  
-//            }
-//            
-//            if(!empty($this->data['Jogo']['link']['name'])) {
-//                $this->UploadDir = new UploadDir();
-//                $this->data['Jogo']['link'] = $this->UploadDir->upload($this->data['Jogo']['link'], "files/games/jogos");  
-////                $uploader = new DropboxUploader("projetogameboard@gmail.com", "papupgame2015");
-////                $uploader->upload($this->data['Jogo']['link']['tmp_name'], $this->data['Jogo']['nome_amigavel'], $this->data['Jogo']['nome_amigavel']);
-//            } else {  
-//                unset($this->data['Jogo']['link']);  
-//            }
-//        }
+        public function uploadGame($jogo) {
+            if(!empty($jogo['Jogo']['img']['name'])) {
+                $this->UploadDir = new UploadDir();
+                $jogo['Jogo']['img'] = $this->UploadDir->upload($jogo['Jogo']['img'], "files/games/imgs");  
+            } else {  
+                unset($jogo['Jogo']['img']);  
+            }
+            
+            if(!empty($this->data['Jogo']['link']['name'])) {
+                $this->UploadDir = new UploadDir();
+                $jogo['Jogo']['link'] = $this->UploadDir->upload($this->data['Jogo']['link'], "files/games/jogos");
+//                $uploader = new DropboxUploader("projetogameboard@gmail.com", "papupgame2015");
+//                $uploader->upload($jogo['Jogo']['link']['tmp_name'], $jogo['Jogo']['nome_amigavel'], $jogo['Jogo']['nome_amigavel']);
+            } else {  
+                unset($jogo['Jogo']['link']);  
+            }
+            
+            return $jogo;
+        }
 
 }
