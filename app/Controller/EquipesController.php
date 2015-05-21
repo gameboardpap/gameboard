@@ -32,11 +32,12 @@ class EquipesController extends AppController {
  * @param string $id
  * @return void
  */
-	public function view($id = null) {
-		if (!$this->Equipe->exists($id)) {
-			throw new NotFoundException(__('Invalid equipe'));
-		}
-		$options = array('conditions' => array('Equipe.' . $this->Equipe->primaryKey => $id));
+	public function view($nome_amigavel = null) {
+//		if (!$this->Equipe->exists($id)) {
+//			throw new NotFoundException(__('Invalid equipe'));
+//		}
+            $this->Equipe->recursive=2;
+		$options = array('conditions' => array('Equipe.nome_amigavel'=>$nome_amigavel));
 		$this->set('equipe', $this->Equipe->find('first', $options));
 	}
 

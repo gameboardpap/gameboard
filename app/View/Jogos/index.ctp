@@ -3,14 +3,16 @@
         <div class="lateral-div">
             <h3>Pesquisar por gênero</h3>
             
-            <p><?php 
+            <p>
+            <?php 
                 $ativo=array();
                     if(empty($genero_amigavel))
                     {
-                        $ativo=["class"=>"borda-link"];
+                        $ativo=array("class"=>"borda-link");
                     }
-            
-            echo $this->Html->link("Todos", array("controller"=>"jogos"),$ativo); ?></p>
+            ?>
+            <?php echo $this->Html->link("Todos", array("controller"=>"jogos"),$ativo); ?>
+            </p>
             
             <?php 
                 foreach ($generos as $genero):

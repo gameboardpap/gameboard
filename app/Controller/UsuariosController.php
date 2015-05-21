@@ -77,7 +77,7 @@ class UsuariosController extends AppController {
  *
  * @return void
  */
-	public function add() {
+	public function _add() {
 		if ($this->request->is('post')) {
 			$this->Usuario->create();
 			if ($this->Usuario->save($this->request->data)) {

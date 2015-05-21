@@ -1,4 +1,5 @@
-<div class="equipes view">
+<?php debug($equipe); ?>
+div class="equipes view">
 <h2><?php echo __('Equipe'); ?></h2>
 	<dl>
 		<dt><?php echo __('Id'); ?></dt>
