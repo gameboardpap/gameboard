@@ -70,9 +70,24 @@ class Download extends AppModel {
 		)
 	);
         
-        public function getDownloads($type,$conditions) {
+        public function getDownloads($type,$conditions,$order=NULL,$group=NULL,$vf=NULL) {
+            $this->recursive = 2;
+            $opt['conditions']=$conditions;
+            if($vf) {
+                foreach($vf as $v) {
+                    $this->virtualFields[$v['nome_campo']] = $v['campo'];   
+                }
+            }
             
-            $downloads=$this->find($type,array('conditions'=>$conditions));
+            if($order) {
+                $opt['order']=$order;
+            }
+            
+            if($group) {
+                $opt['group']=$group;
+            }
+            $opt['contain']=array('Jogo' => array('fields' => array('id','nome'), 'Equipe'));
+            $downloads=$this->find($type,$opt);
             
             return $downloads;
             

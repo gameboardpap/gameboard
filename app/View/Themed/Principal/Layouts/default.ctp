@@ -14,7 +14,6 @@
                                 'bootstrap.min',
                                 'main',
                                 'custom',
-                                'http://fonts.googleapis.com/css?family=Open+Sans:400,700,600,800',
                                 'icomoon-social',
                                 'font-awesome.min',
                                 'bootstrap-notify',
@@ -30,7 +29,6 @@
     ?>
     <?php
         echo $this->Html->script(array(
-            'http://use.edgefonts.net/bebas-neue.js',
             'modernizr'   
         ));
     ?>

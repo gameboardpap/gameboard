@@ -110,4 +110,27 @@ class Comentario extends AppModel {
             $this->Jogo->save($jogo);
             
         }
+        
+        public function getComentarios($type,$conditions,$order=NULL,$group=NULL,$vf=NULL) {
+            $this->recursive = 2;
+            $opt['conditions']=$conditions;
+            if($vf) {
+                foreach($vf as $v) {
+                    $this->virtualFields[$v['nome_campo']] = $v['campo'];   
+                }
+            }
+            
+            if($order) {
+                $opt['order']=$order;
+            }
+            
+            if($group) {
+                $opt['group']=$group;
+            }
+            $opt['contain']=array('Jogo' => array('fields' => array('id','nome','created','modified','nota'), 'Equipe'));
+            $downloads=$this->find($type,$opt);
+            
+            return $downloads;
+            
+        }   
 }
