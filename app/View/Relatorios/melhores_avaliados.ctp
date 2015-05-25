@@ -13,8 +13,8 @@
             <tbody>
                 <?php foreach ($relatorios as $relatorio): ?>
                 <tr>
-                    <td><?php echo $this->Html->link($relatorio['Jogo']['nome'],array('controller'=>'jogos','action'=>'visualizar',$relatorio['Jogo']['nome'])); ?></td>
-                    <td><?php echo $this->Html->link($relatorio['Jogo']['Equipe']['nome_equipe'],array('controller'=>'desenvolvedoras','action'=>'visualizar',$relatorio['Jogo']['Equipe']['nome_equipe'])); ?></td>
+                    <td><?php echo $this->Html->link($relatorio['Jogo']['nome'],array('controller'=>'jogos','action'=>'visualizar',$relatorio['Jogo']['nome_amigavel'])); ?></td>
+                    <td><?php echo $this->Html->link($relatorio['Jogo']['Equipe']['nome_equipe'],array('controller'=>'desenvolvedoras','action'=>'visualizar',$relatorio['Jogo']['Equipe']['nome_amigavel'])); ?></td>
                     <td><?php echo $relatorio['Jogo']['nota']; ?></td>
                     <td><?php echo $relatorio['Comentario']['total_feed']; ?></td>
                 </tr>

@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-md-12">
-        <legend>RELATÓRIO - TODOS OS FEEDBACKS DO JOGO <?php echo $this->Html->link(strtoupper($relatorios[0]['Jogo']['nome']),array('controller'=>'jogos','action'=>'visualizar',$relatorios[0]['Jogo']['nome'])); ?></legend>
+        <legend>RELATÓRIO - TODOS OS FEEDBACKS DO JOGO <?php echo $this->Html->link(strtoupper($relatorios[0]['Jogo']['nome']),array('controller'=>'jogos','action'=>'visualizar',$relatorios[0]['Jogo']['nome_amigavel'])); ?></legend>
         <table class="table table-striped">
             <thead>
                 <tr>

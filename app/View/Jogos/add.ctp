@@ -65,25 +65,6 @@
     </div>
 </div>
 
-<script type="text/javascript">
-    $(document).ready(function(){
-        $(".form-add-jogo").submit(function() {
-            var dados = $(this).serialize();
-            var url = "<?php echo $this->Html->url(array('controller'=>'jogos','action'=>'add')); ?>";
-            $.ajax({
-              type: 'post',
-              data: dados,
-              url: url ,
-              success: function(retorno){
-                alert("ajax"); 
-              }
-            });
-            
-            return false;
-        });
-    });
-</script>
-
 <?php } else { ?>
     <p>Você não possui nenhuma equipe para adicionar um jogo! Crie uma equipe ou solicite a algum usuário membro de uma equipe desejada para te adicionar nela!</p>
 <?php    } ?>

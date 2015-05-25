@@ -86,7 +86,7 @@ class Download extends AppModel {
             if($group) {
                 $opt['group']=$group;
             }
-            $opt['contain']=array('Jogo' => array('fields' => array('id','nome'), 'Equipe'));
+            $opt['contain']=array('Jogo' => array('fields' => array('id','nome','nome_amigavel'), 'Equipe'));
             $downloads=$this->find($type,$opt);
             
             return $downloads;
