@@ -60,7 +60,11 @@ class Equipe extends AppModel {
                 $this->data['Equipe']['logo'] = $this->UploadDir->upload($this->data['Equipe']['logo'], "files/equipe_logo");  
             } else {  
                 unset($this->data['Equipe']['logo']);  
-            }  
+            }
+            if(empty($this->data['Equipe']['id'])) {
+                $user=$this->getUsuarioLogado();
+                $this->data['Usuario'][]=$user['id'];
+            }
         }
         
         public function getEquipes($type,$conditions) {

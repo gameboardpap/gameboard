@@ -49,7 +49,7 @@ class EquipesController extends AppController {
 	public function add() {
 		if ($this->request->is('post')) {
 			$this->Equipe->create();
-			if ($this->Equipe->save($this->request->data)) {
+			if ($this->Equipe->saveAll($this->request->data)) {
 				$this->Session->setFlash(__('The equipe has been saved.'));
 				return $this->redirect(array('action' => 'index'));
 			} else {

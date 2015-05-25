@@ -1,4 +1,4 @@
-<?php $this->assign('title', 'Adicionar novo equipe'); ?>
+<?php $this->assign('title', 'Adicionar equipe'); ?>
 
 <div class="section">
     <div class="container">
@@ -31,7 +31,7 @@
                                             'label' => 
                                             array (
                                                 'class'=>'col-md-4 control-label',
-                                                'text' => 'Logo da equipe'
+                                                'text' => 'Logo da desenvolvedora'
                                                 )
                                             )
                                             );

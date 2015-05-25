@@ -1,59 +1,56 @@
-<div class="row">
-    <div class="col-md-12">
-        <?php // if($busca) { ?> <h4>Termo pesquisado: <b><?php // echo $busca; ?></b></h4> <?php // } ?>
-        <?php foreach ($equipes as $equipe): ?>
-            <?php echo $this->Html->link('
-            <div class="row">
-                <div class="col-md-12 blogShort">
-                    <div class="row">
-                        <div class="col-md-2">'. 
-                            $this->Html->image("/app/webroot//files/equipe_logo/".$equipe["Equipe"]["logo"],array("class"=>"img-responsive img-thumbnail img-index-game"))
-                         .'</div>
-                        <div class="col-md-10">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <h4>'. $equipe["Equipe"]["nome_equipe"] .'</h4>
-                                </div>
-                            </div>
-                            <div class="row">
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        ',array("controller"=>"desenvolvedoras","action"=>"visualizar",$equipe["Equipe"]["nome_amigavel"]),array("escape"=>false,'class'=>'link-jogo')); ?>
-        <?php endforeach; ?>
-    </div>
+<div class="equipes index">
+	<h2><?php echo __('Equipes'); ?></h2>
+	<table cellpadding="0" cellspacing="0">
+	<thead>
+	<tr>
+			<th><?php echo $this->Paginator->sort('id'); ?></th>
+			<th><?php echo $this->Paginator->sort('nome_equipe'); ?></th>
+			<th><?php echo $this->Paginator->sort('nome_amigavel'); ?></th>
+			<th><?php echo $this->Paginator->sort('desc_equipe'); ?></th>
+			<th><?php echo $this->Paginator->sort('logo'); ?></th>
+			<th><?php echo $this->Paginator->sort('created'); ?></th>
+			<th><?php echo $this->Paginator->sort('modified'); ?></th>
+			<th class="actions"><?php echo __('Actions'); ?></th>
+	</tr>
+	</thead>
+	<tbody>
+	<?php foreach ($equipes as $equipe): ?>
+	<tr>
+		<td><?php echo h($equipe['Equipe']['id']); ?>&nbsp;</td>
+		<td><?php echo h($equipe['Equipe']['nome_equipe']); ?>&nbsp;</td>
+		<td><?php echo h($equipe['Equipe']['nome_amigavel']); ?>&nbsp;</td>
+		<td><?php echo h($equipe['Equipe']['desc_equipe']); ?>&nbsp;</td>
+		<td><?php echo h($equipe['Equipe']['logo']); ?>&nbsp;</td>
+		<td><?php echo h($equipe['Equipe']['created']); ?>&nbsp;</td>
+		<td><?php echo h($equipe['Equipe']['modified']); ?>&nbsp;</td>
+		<td class="actions">
+			<?php echo $this->Html->link(__('View'), array('action' => 'view', $equipe['Equipe']['id'])); ?>
+			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $equipe['Equipe']['id'])); ?>
+			<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $equipe['Equipe']['id']), array(), __('Are you sure you want to delete # %s?', $equipe['Equipe']['id'])); ?>
+		</td>
+	</tr>
+<?php endforeach; ?>
+	</tbody>
+	</table>
+	<p>
+	<?php
+	echo $this->Paginator->counter(array(
+	'format' => __('Page {:page} of {:pages}, showing {:current} records out of {:count} total, starting on record {:start}, ending on {:end}')
+	));
+	?>	</p>
+	<div class="paging">
+	<?php
+		echo $this->Paginator->prev('< ' . __('previous'), array(), null, array('class' => 'prev disabled'));
+		echo $this->Paginator->numbers(array('separator' => ''));
+		echo $this->Paginator->next(__('next') . ' >', array(), null, array('class' => 'next disabled'));
+	?>
+	</div>
 </div>
-
-<div class="row">
-    <div class="col-md-12">
-        <div class="text-center">
-            <ul class="pagination">
-                <?php
-                    echo $this->Paginator->numbers(array(
-                            'separator' => null,
-                            'modulus'=>5,
-                            'ellipsis'=>'...',
-                            'tag'=>'li',
-                            'currentTag'=>'a',
-                            'currentClass'=>'active'
-                            )
-                    );
-                ?>
-            </ul>
-        </div>
-    </div>
+<div class="actions">
+	<h3><?php echo __('Actions'); ?></h3>
+	<ul>
+		<li><?php echo $this->Html->link(__('New Equipe'), array('action' => 'add')); ?></li>
+		<li><?php echo $this->Html->link(__('List Usuarios'), array('controller' => 'usuarios', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('New Usuario'), array('controller' => 'usuarios', 'action' => 'add')); ?> </li>
+	</ul>
 </div>
-<?php echo $this->Html->scriptBlock(''
-        . '$(document).ready(function(){'        
-        .    '$(".link-jogo").hover(function(){'
-        .       '$(this).find(".blogShort").addClass("fundo-verde"); } , function(){'
-        .       '$(this).find(".blogShort").removeClass("fundo-verde");'
-        .    '});'
-        . '});'
-        
-        
-        ,array('inline'=>false)); ?>
-

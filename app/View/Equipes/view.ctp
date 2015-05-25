@@ -1,5 +1,4 @@
-<?php debug($equipe); ?>
-div class="equipes view">
+<div class="equipes view">
 <h2><?php echo __('Equipe'); ?></h2>
 	<dl>
 		<dt><?php echo __('Id'); ?></dt>
@@ -10,6 +9,11 @@ div class="equipes view">
 		<dt><?php echo __('Nome Equipe'); ?></dt>
 		<dd>
 			<?php echo h($equipe['Equipe']['nome_equipe']); ?>
+			&nbsp;
+		</dd>
+		<dt><?php echo __('Nome Amigavel'); ?></dt>
+		<dd>
+			<?php echo h($equipe['Equipe']['nome_amigavel']); ?>
 			&nbsp;
 		</dd>
 		<dt><?php echo __('Desc Equipe'); ?></dt>
@@ -51,7 +55,8 @@ div class="equipes view">
 	<table cellpadding = "0" cellspacing = "0">
 	<tr>
 		<th><?php echo __('Id'); ?></th>
-		<th><?php echo __('Nickname'); ?></th>
+		<th><?php echo __('Username'); ?></th>
+		<th><?php echo __('Nome Amigavel'); ?></th>
 		<th><?php echo __('Email'); ?></th>
 		<th><?php echo __('Password'); ?></th>
 		<th><?php echo __('Primeiro Nome'); ?></th>
@@ -59,6 +64,8 @@ div class="equipes view">
 		<th><?php echo __('Descricao'); ?></th>
 		<th><?php echo __('Ultimo Nome'); ?></th>
 		<th><?php echo __('Data Nascimento'); ?></th>
+		<th><?php echo __('Role'); ?></th>
+		<th><?php echo __('Ativo'); ?></th>
 		<th><?php echo __('Created'); ?></th>
 		<th><?php echo __('Modified'); ?></th>
 		<th class="actions"><?php echo __('Actions'); ?></th>
@@ -66,7 +73,8 @@ div class="equipes view">
 	<?php foreach ($equipe['Usuario'] as $usuario): ?>
 		<tr>
 			<td><?php echo $usuario['id']; ?></td>
-			<td><?php echo $usuario['nickname']; ?></td>
+			<td><?php echo $usuario['username']; ?></td>
+			<td><?php echo $usuario['nome_amigavel']; ?></td>
 			<td><?php echo $usuario['email']; ?></td>
 			<td><?php echo $usuario['password']; ?></td>
 			<td><?php echo $usuario['primeiro_nome']; ?></td>
@@ -74,6 +82,8 @@ div class="equipes view">
 			<td><?php echo $usuario['descricao']; ?></td>
 			<td><?php echo $usuario['ultimo_nome']; ?></td>
 			<td><?php echo $usuario['data_nascimento']; ?></td>
+			<td><?php echo $usuario['role']; ?></td>
+			<td><?php echo $usuario['ativo']; ?></td>
 			<td><?php echo $usuario['created']; ?></td>
 			<td><?php echo $usuario['modified']; ?></td>
 			<td class="actions">
