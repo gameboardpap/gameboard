@@ -103,7 +103,7 @@
                                                 'class'=>'col-md-4 control-label',
                                                 'text' => 'Sobre você'
                                                 ),
-                                                'placeholder'=>'Fale sobre você ou como conheceu o GameBoard'
+                                                'placeholder'=>'Fale sobre você'
                                             ));    
                         ?>
                 <?php echo $this->Form->end(array(

@@ -31,6 +31,7 @@
         Router::connect('/novaequipe', array('controller' => 'Equipes', 'action' => 'add'));
         Router::connect('/editarmeusjogos', array('controller' => 'Jogos', 'action' => 'editMeus'));
         Router::connect('/meusdownloads', array('controller' => 'Downloads', 'action' => 'index'));
+        Router::connect('/usuarios/editar/:nome_amigavel', array('controller' => 'usuarios', 'action' => 'edit'),array('pass'=>array('nome_amigavel')));
         Router::connect('/Sair', array('controller' => 'Usuarios', 'action' => 'logout'));
         Router::connect('/Login', array('controller' => 'Usuarios', 'action' => 'login'));
         Router::connect('/jogos/visualizar/:nome_amigavel', array('controller' => 'Jogos', 'action' => 'view'),    array('pass' => array('nome_amigavel')));

@@ -1,4 +1,4 @@
-<?php $this->assign('title', 'Editar jogo'); ?>
+<?php $this->assign('title', 'Editar desenvolvedora'); ?>
 
 <div class="section">
     <div class="container">

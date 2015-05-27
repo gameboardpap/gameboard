@@ -77,14 +77,14 @@ class UsuariosController extends AppController {
  *
  * @return void
  */
-	public function _add() {
+	public function add() {
 		if ($this->request->is('post')) {
 			$this->Usuario->create();
 			if ($this->Usuario->save($this->request->data)) {
-				$this->Session->setFlash(__('The usuario has been saved.'));
-				return $this->redirect(array('action' => 'index'));
+				$this->Session->setFlash(__('Cadastrado com sucesso!'),'flash_custom',array(),'sucesso');
+				return $this->redirect(array('controller'=>''));
 			} else {
-				$this->Session->setFlash(__('The usuario could not be saved. Please, try again.'));
+				$this->Session->setFlash(__('Não foi possível se cadastrar no momento. Tente novamente mais tarde!'),'flash_custom',array(),'erro');
 			}
 		}
 	}
@@ -96,19 +96,16 @@ class UsuariosController extends AppController {
  * @param string $id
  * @return void
  */
-	public function edit($id = null) {
-		if (!$this->Usuario->exists($id)) {
-			throw new NotFoundException(__('Invalid usuario'));
-		}
+	public function edit($nome_amigavel = null) {
 		if ($this->request->is(array('post', 'put'))) {
 			if ($this->Usuario->save($this->request->data)) {
-				$this->Session->setFlash(__('The usuario has been saved.'));
-				return $this->redirect(array('action' => 'index'));
+				$this->Session->setFlash(__('Perfil alterado com sucesso!', 'flash_custom', array(),'sucesso'));
+				return $this->redirect(array('action' => 'editar',$nome_amigavel));
 			} else {
-				$this->Session->setFlash(__('The usuario could not be saved. Please, try again.'));
+				$this->Session->setFlash(__('O perfil não pôde ser alterado! Tente novamente mais tarde', 'flash_custom', array(),'erro'));
 			}
 		} else {
-			$options = array('conditions' => array('Usuario.' . $this->Usuario->primaryKey => $id));
+			$options = array('conditions' => array('Usuario.nome_amigavel' => $nome_amigavel));
 			$this->request->data = $this->Usuario->find('first', $options);
 		}
 	}

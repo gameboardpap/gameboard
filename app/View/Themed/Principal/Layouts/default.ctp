@@ -56,13 +56,10 @@
                                             <li>
                                                 <?php echo $this->Html->link('Todos os jogos', array('controller'=>'jogos','action'=>'/')); ?>
                                             </li>
-                                            <li><a>Buscar por gênero:</a></li>
+                                            <!--<li><a>Buscar por gênero:</a></li>-->
                                             <li class="divider"></li>
                                             <li>
-                                                <?php echo $this->Html->link('Adicionar um novo jogo', array('controller'=>'novojogo','action'=>'/')); ?>
-                                            </li>
-                                            <li>
-                                                <?php echo $this->Html->link('Editar um jogo meu', array('controller'=>'editarmeusjogos','action'=>'')); ?>
+                                                <?php echo $this->Html->link('Meu jogos', array('controller'=>'meusjogos','action'=>'')); ?>
                                             </li>
                                             <li class="divider"></li>
                                             <li>
@@ -76,12 +73,17 @@
                                             <li>
                                                 <?php echo $this->Html->link('Todos as desenvolvedoras', array('controller'=>'equipes','action'=>'/')); ?>
                                             </li>
-                                            <li class="divider"></li>
+                                            <li class="divider"></li>                                          
                                             <li>
-                                                <?php echo $this->Html->link('Adicionar uma nova desenvolvedora', array('controller'=>'novaequipe','action'=>'/')); ?>
-                                            </li>                                            
+                                                <?php echo $this->Html->link('Minhas desenvolvedoras', array('controller'=>'minhasdevs','action'=>'')); ?>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Usuários <i class="fa fa-angle-down"></i></a>
+                                        <ul class="dropdown-menu">
                                             <li>
-                                                <?php echo $this->Html->link('Editar uma desenvolvedora minha', array('controller'=>'editarminhaequipe','action'=>'')); ?>
+                                                <?php echo $this->Html->link('Todos as usuários', array('controller'=>'usuarios','action'=>'/')); ?>
                                             </li>
                                         </ul>
                                     </li>
@@ -149,7 +151,7 @@
                                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Bem vindo, <?php echo $logado['username']; ?>  <i class="fa fa-angle-down"></i></a>
                                             <ul class="dropdown-menu">
                                                 <li>
-                                                    <?php echo $this->Html->link('<i class="fa fa-cogs"></i> Configurações',array('controller'=>'','action'=>'Config'),array('escape'=>false)); ?>
+                                                    <?php echo $this->Html->link('<i class="fa fa-cogs"></i> Editar meu perfil',array('controller'=>'usuarios','action'=>'editar',$logado['nome_amigavel']),array('escape'=>false)); ?>
                                                 </li>
                                                 <li class="divider"></li>
                                                 <li>

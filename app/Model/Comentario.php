@@ -127,7 +127,7 @@ class Comentario extends AppModel {
             if($group) {
                 $opt['group']=$group;
             }
-            $opt['contain']=array('Jogo' => array('fields' => array('id','nome','created','modified','nota','nome_amigavel'), 'Equipe'));
+            $opt['contain']=array('Usuario','Jogo' => array('fields' => array('id','nome','created','modified','nota','nome_amigavel'), 'Equipe'));
             $downloads=$this->find($type,$opt);
             
             return $downloads;
