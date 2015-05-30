@@ -35,7 +35,7 @@
             <div class="col-md-7">
                 <h3>Detalhes do jogo</h3>
                 <p><strong>Equipe desenvolvedora: </strong><?php echo $this->Html->link('<span class="label label-warning">'.$jogo['Equipe']['nome_equipe'].'</span>', array('controller' => 'equipes', 'action' => 'view', $jogo['Equipe']['id']), array('escape'=>false)); ?></p>
-                <p><strong>Última atualização: </strong><?php echo h($jogo['Jogo']['modified']); ?></p>
+                <p><strong>Data de publicação: </strong><?php echo date('d/m/Y',strtotime($jogo['Jogo']['created'])); ?></p>
                 <p><strong>Faixa Etária: </strong><?php echo h($jogo['Jogo']['faixa_etaria']); ?></p>
                 <p><strong>Gêneros: </strong>
                     <?php foreach ($jogo['Genero'] as $genero): ?>
@@ -72,23 +72,46 @@
                 <h4 class="modal-title" id="myModalLabel">Adicionando novo feedback</h4>
             </div>
             <div class="modal-body">
-                <?php echo $this->Form->create('Comentario', array('url' => array('controller' => 'comentarios', 'action' => 'add'),'class'=>'form-comment form-horizontal','role' => 'form',
+                <?php echo $this->Form->create('Comentario', array('url' => array('controller' => 'comentarios', 'action' => 'add'),'class'=>'form-comment','role' => 'form',
                                         'inputDefaults' => array(
                                             'before' => '<div class="form-group">',
-                                            'between' => '<div class="col-md-8">',
-                                            'after' => '</div> </div>',
-                                            'label'=>array(
-                                                'class'=>'col-md-4 control-label'                            
-                                            ),
+                                            'between' => '',
+                                            'after' => '</div>',
+                                            'label'=>false,
                                             'class'=>'form-control'))); ?>
                     <fieldset>
                     <?php
                             echo $this->Form->input('usuario_id',array('value'=>$logado['id'],'type'=>'hidden'));
                             echo $this->Form->input('jogo_id', array('value'=>$jogo['Jogo']['id'],'type'=>'hidden'));
-                            echo $this->Form->input('comentario');
-                            echo $this->Form->input('pros');
-                            echo $this->Form->input('contras');
-                            echo $this->Form->input('nota');
+                    ?>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label><font color="green">Prós</font></label>
+                            <?php
+                                echo $this->Form->input('pros');
+                            ?>
+                        </div>
+                        <div class="col-md-6">
+                            <label><font color="red">Contras</font></label>
+                            <?php
+                                echo $this->Form->input('contras');
+                            ?>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label><font color="blue">Comentários adicionais</font></label>
+                            <?php
+                                echo $this->Form->input('comentario');
+                            ?>
+                        </div>
+                    </div>
+                        <label><font color="orange">Nota</font></label>
+                        <?php
+                            for($i=1; $i<=10; $i++):
+                                $options[$i]=$i;
+                            endfor;
+                            echo $this->Form->input('nota',array('options'=>$options));
                     ?>
                     </fieldset>
             </div>

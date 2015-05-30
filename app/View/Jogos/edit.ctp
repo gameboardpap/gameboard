@@ -1,32 +1,73 @@
-<div class="jogos form">
-<?php echo $this->Form->create('Jogo'); ?>
-	<fieldset>
-		<legend><?php echo __('Edit Jogo'); ?></legend>
-	<?php
-		echo $this->Form->input('id');
-		echo $this->Form->input('nome');
-		echo $this->Form->input('img');
-		echo $this->Form->input('equipe_id');
-		echo $this->Form->input('faixa_etaria');
-		echo $this->Form->input('n_downloads');
-		echo $this->Form->input('link');
-		echo $this->Form->input('nome_amigavel');
-		echo $this->Form->input('info_adicional');
-		echo $this->Form->input('descricao');
-		echo $this->Form->input('Genero');
-	?>
-	</fieldset>
-<?php echo $this->Form->end(__('Submit')); ?>
-</div>
-<div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
-	<ul>
+<?php $this->assign('title', 'Editar jogo'); ?>
 
-		<li><?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $this->Form->value('Jogo.id')), array(), __('Are you sure you want to delete # %s?', $this->Form->value('Jogo.id'))); ?></li>
-		<li><?php echo $this->Html->link(__('List Jogos'), array('action' => 'index')); ?></li>
-		<li><?php echo $this->Html->link(__('List Equipes'), array('controller' => 'equipes', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Equipe'), array('controller' => 'equipes', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Generos'), array('controller' => 'generos', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Genero'), array('controller' => 'generos', 'action' => 'add')); ?> </li>
-	</ul>
+<?php if(!empty($equipes)) { ?>
+
+<div class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9 col-md-offset-1">
+                <?php 
+                    echo $this->Form->create('Jogo',
+                        array(
+                            'type' => 'file',
+                            'class'=> 'form-horizontal form-add-jogo',
+                            'role' => 'form',
+                            'inputDefaults' => array(
+                                'before' => '<div class="form-group">',
+                                'between' => '<div class="col-md-8">',
+                                'after' => '</div> </div>',
+                                'label'=>array(
+                                    'class'=>'col-md-4 control-label'                            
+                                ),
+                                'class'=>'form-control'
+                            )
+                        )
+                    ); 
+                ?>
+                <?php
+                    echo $this->Form->input('id');
+                    echo $this->Form->input('nome');
+                    echo $this->Form->input('img',
+                                            array(
+                                            'type' => 'file',
+                                            'class'=>'',
+                                            'label' => 
+                                            array (
+                                                'class'=>'col-md-4 control-label',
+                                                'text' => 'Capa do jogo/Imagem principal'
+                                                )
+                                            )
+                                            );
+                    echo $this->Form->input('link',
+                        array(
+                        'type' => 'file',
+                        'class'=>'',
+                        'label' => 
+                        array (
+                            'class'=>'col-md-4 control-label',
+                            'text' => 'Jogo'
+                            )
+                        ));
+                    echo $this->Form->input('equipe_id');
+                    $faixas = array('L' => 'Livre', '10' => 'Acima de 10 anos', '14' => 'Acima de 14 anos', '16' => 'Acima de 16 anos', '18' => 'Acima de 18 anos');
+                    echo $this->Form->input('faixa_etaria',array('options'=>$faixas));
+                    echo $this->Form->input('info_adicional');
+                    echo $this->Form->input('descricao');
+                    $status=array('Em desenvolvimento'=>'Em desenvolvimento','Completo'=>'Completo');
+                    echo $this->Form->input('status',array('options'=>$status));
+                    echo $this->Form->input('Genero');
+                ?>
+                <?php echo $this->Form->end(array(
+                    'label'=>'Editar',
+                    'class'=>'btn btn-default',
+                    'before'=>'<div class="form-group"> <div class="col-md-offset-7 col-md-2">',
+                    'after'=>'</div> </div>'
+                    )); ?>
+            </div>
+        </div>
+    </div>
 </div>
+
+<?php } else { ?>
+    <p>Você não possui nenhuma equipe para adicionar um jogo! Crie uma equipe ou solicite a algum usuário membro de uma equipe desejada para te adicionar nela!</p>
+<?php    } ?>

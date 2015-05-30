@@ -27,17 +27,20 @@
         Router::connect('/Cadastrar', array('controller' => 'Usuarios', 'action' => 'add'));
         Router::connect('/NovoJogo', array('controller' => 'Jogos', 'action' => 'add'));
         Router::connect('/novojogo', array('controller' => 'Jogos', 'action' => 'add'));
-        Router::connect('/NovaEquipe', array('controller' => 'Equipes', 'action' => 'add'));
-        Router::connect('/novaequipe', array('controller' => 'Equipes', 'action' => 'add'));
+        Router::connect('/novadev', array('controller' => 'Equipes', 'action' => 'add'));
+        Router::connect('/novaDev', array('controller' => 'Equipes', 'action' => 'add'));
         Router::connect('/editarmeusjogos', array('controller' => 'Jogos', 'action' => 'editMeus'));
         Router::connect('/meusdownloads', array('controller' => 'Downloads', 'action' => 'index'));
+        Router::connect('/meusjogos', array('controller' => 'Jogos', 'action' => 'meusJogos'));
         Router::connect('/usuarios/editar/:nome_amigavel', array('controller' => 'usuarios', 'action' => 'edit'),array('pass'=>array('nome_amigavel')));
         Router::connect('/Sair', array('controller' => 'Usuarios', 'action' => 'logout'));
         Router::connect('/Login', array('controller' => 'Usuarios', 'action' => 'login'));
         Router::connect('/jogos/visualizar/:nome_amigavel', array('controller' => 'Jogos', 'action' => 'view'),    array('pass' => array('nome_amigavel')));
         Router::connect('/desenvolvedoras/visualizar/:nome_amigavel', array('controller' => 'Equipes', 'action' => 'view'),    array('pass' => array('nome_amigavel')));
+        Router::connect('/desenvolvedoras/editar/:nome_amigavel', array('controller' => 'Equipes', 'action' => 'edit'),    array('pass' => array('nome_amigavel')));
         Router::connect('/desenvolvedoras', array('controller' => 'Equipes', 'action' => 'index'));
         Router::connect('/jogos/generos/:genero', array('controller' => 'Jogos', 'action' => 'index'),    array('pass' => array('genero')));
+        Router::connect('/jogos/editar/:nome_amigavel', array('controller' => 'Jogos', 'action' => 'edit'),    array('pass' => array('nome_amigavel')));
         Router::connect('/', array('controller' => 'Home', 'action' => 'inicio'));
         
         

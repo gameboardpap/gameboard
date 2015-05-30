@@ -138,4 +138,9 @@ class JogosController extends AppController {
                 $this->Session->setFlash('Você possui 5 jogos que baixou e não deu feedback! Dê feedback nestes jogos para continuar baixando!');
             }
         }
+        
+        public function meusJogos() {
+            $dados=array('jogos'=>$this->Jogo->meusjogos(),'equipes'=>$this->Jogo->getEquipes());
+            $this->set($dados);
+        }
 }

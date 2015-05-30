@@ -128,15 +128,20 @@ class Relatorio extends AppModel {
         $equipe= new Equipe();
         $equipes=$equipe->getEquipes($type, $conditionsEquipe);
         
-        foreach($equipes as $key => $value) {
-            $equipe_id[]=$key;
+        if($equipes) {
+
+            foreach($equipes as $key => $value) {
+                $equipe_id[]=$key;
+            }
+
+            $conditionsJogo=array('Jogo.equipe_id'=>$equipe_id);
+            $typeJogo='all';
+            $jogo = new Jogo();
+            $jogos = $jogo->getJogos($typeJogo, $conditionsJogo);
+
+            return $jogos; 
+        } else {
+            return null;
         }
-        
-        $conditionsJogo=array('Jogo.equipe_id'=>$equipe_id);
-        $typeJogo='all';
-        $jogo = new Jogo();
-        $jogos = $jogo->getJogos($typeJogo, $conditionsJogo);
-        
-        return $jogos;
     }
 }

@@ -52,6 +52,8 @@
                     echo $this->Form->input('faixa_etaria',array('options'=>$faixas));
                     echo $this->Form->input('info_adicional');
                     echo $this->Form->input('descricao');
+                    $status=array('Em desenvolvimento'=>'Em desenvolvimento','Completo'=>'Completo');
+                    echo $this->Form->input('status',array('options'=>$status));                    
                     echo $this->Form->input('Genero');
                 ?>
                 <?php echo $this->Form->end(array(

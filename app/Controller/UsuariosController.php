@@ -82,7 +82,7 @@ class UsuariosController extends AppController {
 			$this->Usuario->create();
 			if ($this->Usuario->save($this->request->data)) {
 				$this->Session->setFlash(__('Cadastrado com sucesso!'),'flash_custom',array(),'sucesso');
-				return $this->redirect(array('controller'=>''));
+				return $this->redirect(array('controller'=>'/'));
 			} else {
 				$this->Session->setFlash(__('Não foi possível se cadastrar no momento. Tente novamente mais tarde!'),'flash_custom',array(),'erro');
 			}

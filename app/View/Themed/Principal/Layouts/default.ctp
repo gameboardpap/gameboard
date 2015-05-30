@@ -59,7 +59,7 @@
                                             <!--<li><a>Buscar por gênero:</a></li>-->
                                             <li class="divider"></li>
                                             <li>
-                                                <?php echo $this->Html->link('Meu jogos', array('controller'=>'meusjogos','action'=>'')); ?>
+                                                <?php echo $this->Html->link('Gerenciar desenvolvedoras e jogos', array('controller'=>'meusjogos','action'=>'')); ?>
                                             </li>
                                             <li class="divider"></li>
                                             <li>
@@ -75,7 +75,7 @@
                                             </li>
                                             <li class="divider"></li>                                          
                                             <li>
-                                                <?php echo $this->Html->link('Minhas desenvolvedoras', array('controller'=>'minhasdevs','action'=>'')); ?>
+                                                <?php echo $this->Html->link('Gerenciar desenvolvedoras e jogos', array('controller'=>'meusjogos','action'=>'')); ?>
                                             </li>
                                         </ul>
                                     </li>

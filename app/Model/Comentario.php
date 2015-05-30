@@ -1,5 +1,6 @@
 <?php
 App::uses('AppModel', 'Model');
+App::uses('Download', 'Model');
 /**
  * Comentario Model
  *
@@ -102,12 +103,22 @@ class Comentario extends AppModel {
         
         public function afterSave($created, $options = array())
         {
+            $user = $this->getUsuarioLogado();
             $this->virtualFields['nota_total'] = 'AVG(Comentario.nota)';
             $nota = $this->find('first', array('fields' => array('nota_total')));
             $jogo['Jogo']['id']=$this->data['Comentario']['jogo_id'];
             $jogo['Jogo']['nota']=$nota['Comentario']['nota_total'];
             
             $this->Jogo->save($jogo);
+            
+            $download = new Download();
+            
+            $conditions=array('Download.usuario_id'=>$user['id'],'Download.jogo_id'=>$this->data['Comentario']['jogo_id']);
+            $type='first';
+            $downloads=$download->getDownloads($type, $conditions);
+            $downloads['Download']['feedback']=1;
+            
+            $download->save($downloads);
             
         }
         

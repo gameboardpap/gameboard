@@ -237,5 +237,42 @@ class Jogo extends AppModel {
             
             return $jogo;
         }
+        
+        public function meusJogos() {
+            return $this->getMeusJogos();
+        }
+        
+        public function getEquipes ()
+        {
+            $user=$this->getUsuarioLogado();
+            $conditions=array('Usuario.id'=>$user['id']);
+            $type='all';
+            $equipes=$this->Equipe->getEquipes($type, $conditions);
+
+            return $equipes;
+        }
+
+        public function getMeusJogos()
+        {
+            $user=$this->getUsuarioLogado();
+            $conditionsEquipe=array('Usuario.id'=>$user['id']);
+            $type='list';
+            $equipes=$this->Equipe->getEquipes($type, $conditionsEquipe);
+
+            if($equipes) {
+
+                foreach($equipes as $key => $value) {
+                    $equipe_id[]=$key;
+                }
+
+                $conditionsJogo=array('Jogo.equipe_id'=>$equipe_id);
+                $typeJogo='all';
+                $jogos = $this->getJogos($typeJogo, $conditionsJogo);
+
+                return $jogos; 
+            } else {
+                return null;
+            }
+        }
 
 }

@@ -67,19 +67,16 @@ class EquipesController extends AppController {
  * @param string $id
  * @return void
  */
-	public function edit($id = null) {
-		if (!$this->Equipe->exists($id)) {
-			throw new NotFoundException(__('Invalid equipe'));
-		}
+	public function edit($nome_amigavel = null) {
 		if ($this->request->is(array('post', 'put'))) {
 			if ($this->Equipe->save($this->request->data)) {
-				$this->Session->setFlash(__('The equipe has been saved.'));
+				$this->Session->setFlash(__('Desenvolvedora editada com sucesso!'));
 				return $this->redirect(array('action' => 'index'));
 			} else {
-				$this->Session->setFlash(__('The equipe could not be saved. Please, try again.'));
+				$this->Session->setFlash(__('A desenvolvedora não pôde ser editada!'));
 			}
 		} else {
-			$options = array('conditions' => array('Equipe.' . $this->Equipe->primaryKey => $id));
+			$options = array('conditions' => array('Equipe.nome_amigavel'=>$nome_amigavel));
 			$this->request->data = $this->Equipe->find('first', $options);
 		}
 		$usuarios = $this->Equipe->Usuario->find('list');

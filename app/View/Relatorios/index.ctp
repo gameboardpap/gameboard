@@ -2,13 +2,18 @@
 <?php 
 $optEquipes['']='Todo o portal';
 $optEquipes['equipes']='Todas as minhas desenvolvedora';
-foreach($equipes as $key => $value) {
-    $optEquipes[$key]='Apenas desenvolvedora '.$value;
-}
 
-foreach($jogos as $jogo) {
-    $optJogo[$jogo['Jogo']['id']]=$jogo['Jogo']['nome'];
-}
+    if($equipes) {
+        foreach($equipes as $key => $value) {
+            $optEquipes[$key]='Apenas desenvolvedora '.$value;
+        }
+    }
+
+    if($jogos) {
+        foreach($jogos as $jogo) {
+            $optJogo[$jogo['Jogo']['id']]=$jogo['Jogo']['nome'];
+        }
+    }
 ?>
 <div class="row">
     <div class="col-md-4">
@@ -35,13 +40,17 @@ foreach($jogos as $jogo) {
     </div>
     <div class="col-md-4">
         <legend>Todos os feedbacks</legend>
-        <?php echo $this->Form->create('Relatorio',array('url'=>array('controller'=>'Relatorios','action'=>'todosFeedbacks'))); ?>
-        <label>Período do relatório: </label>
-        <?php echo $this->Form->select('periodo',array(''=>'Todos os dias','1'=>'Último dia','7'=>'Últimos sete dias','15'=>'Últimos quinze dias', '30'=>'Últimos 30 dias','90'=>'Últimos 90 dias','180'=>'Últimos 180 dias','365'=>'Últimos 365 dias'),array('class'=>'form-control','empty'=>false)) ?>
-        <br/>
-        <label>Selecione o jogo: </label>
-        <?php echo $this->Form->select('jogo',$optJogo,array('class'=>'form-control','empty'=>false)); ?>
-        <br/>
-        <?php echo $this->Form->end(array('label'=>'Gerar relatório','class'=>'btn btn-orange form-control')); ?>
+        <?php if($jogos) { ?> 
+            <?php echo $this->Form->create('Relatorio',array('url'=>array('controller'=>'Relatorios','action'=>'todosFeedbacks'))); ?>
+            <label>Período do relatório: </label>
+            <?php echo $this->Form->select('periodo',array(''=>'Todos os dias','1'=>'Último dia','7'=>'Últimos sete dias','15'=>'Últimos quinze dias', '30'=>'Últimos 30 dias','90'=>'Últimos 90 dias','180'=>'Últimos 180 dias','365'=>'Últimos 365 dias'),array('class'=>'form-control','empty'=>false)) ?>
+            <br/>
+            <label>Selecione o jogo: </label>
+            <?php echo $this->Form->select('jogo',$optJogo,array('class'=>'form-control','empty'=>false)); ?>
+            <br/>
+            <?php echo $this->Form->end(array('label'=>'Gerar relatório','class'=>'btn btn-orange form-control')); ?>
+        <?php } else { ?>
+            <div class="alert alert-warning">Você não possui nenhuma equipe e/ou jogos enviados por ela! Você precisa adicionar um jogo para ter acesso a este relatório!</div>
+        <?php }  ?>
     </div>
 </div>
